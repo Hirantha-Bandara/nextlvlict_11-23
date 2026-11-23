@@ -1,0 +1,134 @@
+Payment subsystem - Structure and flow
+
+Checklist
+- Locate payment-related Java classes and resources
+- Describe each component (servlets, models, hibernate entities, util)
+- Explain the runtime flow for initiating and recording payments
+- List important configuration points (merchant id/secret, URLs, sandbox)
+- Provide mapping of DB entities used by payments
+- Save this explanation as a text file in the project (this file)
+
+Purpose
+This document explains how the payment part of the NextLevelIct project is currently structured and how the payment flow works (frontend -> PayHere -> notification -> DB). It points to the main files, entities, config, and the important implementation details you'll need to understand and modify the payment flow.
+
+Key components (files & classes)
+- Controller (Servlets)
+  - `com.nextlvlict.nextlvlict.controller.ClassFee` : central servlet for fee-related operations. Handles actions: getFeeDetails, initiatePayment, paymentNotify, paymentReturn, paymentCancel.
+  - `com.nextlvlict.nextlvlict.controller.PaymentHistoryServlet` : returns a student's payment transactions history (GET), reads from `PaymentTransactions` table.
+  - `com.nextlvlict.nextlvlict.controller.PaymentVerificationServlet` : admin-facing servlet for listing/verifying/rejecting payments.
+
+- Payment model & util
+  - `com.nextlvlict.nextlvlict.model.PayHere` : small utility to compute MD5 digests used to build PayHere hash.
+  - `com.nextlvlict.nextlvlict.util.PayHereConfig` : singleton that loads PayHere configuration from `payhere-config.properties` on the classpath or from an external file defined by system property `payhere.config.path`. Provides merchant id/secret, sandbox flags and checkout/base URLs.
+  - `src/main/java/com/nextlvlict/nextlvlict/payhere-config.properties` : default properties packaged in the project.
+
+- Hibernate entities (DB mapping)
+  - `com.nextlvlict.nextlvlict.hibernate.StudentMonthlyFees` (table `student_monthly_fees`)
+    - Fields: id, student (FK), grade (FK), status (FK -> PaymentStatus), monthYear, feeAmount, dueDate, paidDate, transactionId, createdAt, updatedAt
+    - Used to track monthly fee owed and payment status per student/month.
+  - `com.nextlvlict.nextlvlict.hibernate.PaymentTransactions` (table `payment_transactions`)
+    - Fields: id, student (FK), amount, currency, paymentMethod, transactionId, description, createdAt, updatedAt, verificationStatus, verifiedBy, verificationDate, verificationNotes
+    - Used to store each recorded payment transaction. Includes verification fields for admin review.
+  - `com.nextlvlict.nextlvlict.hibernate.PaymentStatus` (table `payment_status`)
+    - Fields: id, value
+    - Used as status lookup; code expects IDs: 1 = pending, 2 = paid (the code fetches those ids directly).
+
+- Hibernate bootstrap
+  - `com.nextlvlict.nextlvlict.hibernate.HibernateUtil` registers these entities with Hibernate SessionFactory.
+
+Payment flow (high-level)
+1) Frontend requests fee details
+   - Endpoint: `ClassFee?action=getFeeDetails` (requires studentId in session or parameter)
+   - Server returns grade, monthlyFee, currency, monthYear, status (PENDING/PAID), dueDate and optionally paidDate.
+   - If there is no StudentMonthlyFees record for this student/month, it creates a pending record with status = pending (PaymentStatus id=1).
+
+2) Frontend initiates payment
+   - Endpoint: `ClassFee?action=initiatePayment` (server uses session studentId)
+   - Server-side creates or retrieves the `StudentMonthlyFees` record for the month and generates a unique order id: `FEE` + System.currentTimeMillis().
+   - The amount is formatted to two decimals.
+   - The PayHere hash is computed as (in code): MD5( merchantId + orderId + amount + currency + MD5(merchantSecret).toLowerCase() ).toLowerCase()
+   - The servlet returns a JSON object named `paymentData` containing PayHere fields:
+     - sandbox, merchant_id, return_url, cancel_url, notify_url, order_id, items, amount, currency, hash
+     - customer info: first_name, last_name, email, phone, address, city, country
+     - custom_1 = studentId, custom_2 = monthYear, custom_3 = monthlyFee.getId()  (used to correlate notification)
+   - Frontend is expected to use these `paymentData` values to redirect the user to PayHere checkout (PayHere checkout URL is available via `PayHereConfig.getCheckoutUrl()`).
+
+3) PayHere posts back a notification
+   - PayHere sends a server-to-server notification to `notify_url` which is set to `ClassFee?action=paymentNotify`.
+   - `ClassFee` handles `paymentNotify`: reads parameters like merchant_id, order_id, status_code, payhere_amount, custom_1..3.
+   - The implementation treats `status_code == "2"` as success. On success it:
+     - Loads the `StudentMonthlyFees` by `custom_3` (feeRecordId) and updates:
+       - status -> PaymentStatus id=2 (expected paid)
+       - paidDate -> now
+       - transactionId -> orderId
+       - updatedAt -> now
+     - Creates a `PaymentTransactions` record with student, amount (from payhere_amount), currency, paymentMethod="PayHere", transactionId=orderId, description set to include the monthYear, createdAt/updatedAt timestamps.
+     - Commits transaction and logs success.
+   - If not status 2, logs failure. The servlet always responds with "OK" to PayHere.
+
+Important implementation details & assumptions
+- The code uses `PaymentStatus` numeric IDs directly (1 for pending, 2 for paid) when creating/updating records. Make sure the DB `payment_status` table has those rows with expected meaning in the same IDs.
+- `order_id` is used as the `transactionId` both in `StudentMonthlyFees` and `PaymentTransactions`.
+- `custom_1` (studentId), `custom_2` (monthYear), `custom_3` (feeRecordId) are used to correlate PayHere notifications to local records. Losing these fields could break correlation.
+- Hash calculation follows a PayHere-style MD5 approach; see `PayHere` utility for MD5 generation. The code logs intermediate values for debugging in `handleInitiatePayment`.
+- `PayHereConfig` can load configuration from an external file (system property `payhere.config.path`) or from the packaged `payhere-config.properties`. Default values are provided in code if property file is missing.
+- `PaymentTransactions` entity already includes fields for verification (verificationStatus, verifiedBy, verificationDate, verificationNotes) but the admin verification servlet only contains placeholder logic; real verify/reject flows should set these fields and maybe update `StudentMonthlyFees` accordingly.
+
+Where to change merchant credentials or sandbox
+- File in classpath: `src/main/java/com/nextlvlict/nextlvlict/payhere-config.properties` (packaged). Keys: `payhere.merchant.id` and `payhere.merchant.secret`, `payhere.sandbox`, `payhere.checkout.url`, `payhere.return.url`.
+- Or set JVM system property `-Dpayhere.config.path=/path/to/external.properties` to point to an external properties file (the code will try to use that first).
+
+Admin verification
+- `PaymentVerificationServlet` is an admin-only endpoint (it checks `isAdmin` session attribute). It lists payments for review. The verify/reject paths are stubs and must be implemented to set `verificationStatus`, `verifiedBy`, `verificationDate` or to update `StudentMonthlyFees` if verification changes status.
+- `PaymentTransactions` already contains verification fields; make sure UI and admin flows update these.
+
+Common extension points / to-dos
+- Validate PayHere callback hash/signature before accepting notifications (currently code trusts status_code only). Add verification using PayHere-provided fields and merchant secret if required by PayHere.
+- Tighten error handling on missing parameters in notification
+- Ensure the database has `payment_status` rows with correct IDs and values (e.g., 1 = "PENDING", 2 = "PAID").
+- Consider using a UUID or dedicated order table for order IDs if you need more traceability than System.currentTimeMillis.
+- PaymentVerificationServlet currently returns `verificationStatus` hardcoded as "pending"; adjust to read from entity fields.
+
+Database tables referenced (by code)
+- payment_status (mapped by PaymentStatus)
+- student_monthly_fees (mapped by StudentMonthlyFees)
+- payment_transactions (mapped by PaymentTransactions)
+
+Where to look in code for payment behavior
+- Initiation & hashing: `ClassFee.handleInitiatePayment` and `com.nextlvlict.nextlvlict.model.PayHere`
+- Notification handling: `ClassFee.handlePaymentNotify`
+- Config: `com.nextlvlict.nextlvlict.util.PayHereConfig` and `payhere-config.properties`
+- Transactions record: `com.nextlvlict.nextlvlict.hibernate.PaymentTransactions`
+- Monthly fee record: `com.nextlvlict.nextlvlict.hibernate.StudentMonthlyFees`
+- Admin verification UI/backend: `PaymentVerificationServlet`
+- User payment history: `PaymentHistoryServlet`
+
+Example JSON returned by `initiatePayment` (fields of interest)
+{
+  "success": true,
+  "paymentData": {
+    "sandbox": true,
+    "merchant_id": "1225665",
+    "return_url": "<base>/ClassFee?action=paymentReturn&studentId=<id>",
+    "cancel_url": "<base>/ClassFee?action=paymentCancel&studentId=<id>",
+    "notify_url": "<base>/ClassFee?action=paymentNotify",
+    "order_id": "FEE167...",
+    "items": "Monthly Class Fee - Grade X (2026-05)",
+    "amount": "1000.00",
+    "currency": "LKR",
+    "hash": "...computed md5...",
+    "first_name": "...",
+    "custom_1": "studentId",
+    "custom_2": "2026-05",
+    "custom_3": "<student_monthly_fees_id>"
+  }
+}
+
+Short troubleshooting checklist
+- If payments don't mark as PAID: ensure PayHere notify_url is reachable from PayHere and that `custom_3` corresponds to an existing `student_monthly_fees` record.
+- If PaymentStatus mapping seems wrong: check values in `payment_status` table (IDs expected in code)
+- If hash verification with PayHere fails client-side: confirm PayHere hash formula and merchant secret; code logs intermediate hash values for debugging.
+
+End of document
+
+(Generated by scanning the repository Java sources: controller classes, model/util and hibernate entities.)

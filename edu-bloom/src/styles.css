@@ -1,0 +1,259 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Next Level ICT design system.
+ * Blue, teal and orange palette with soft gray surfaces.
+ */
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 8px);
+  --radius-md: calc(var(--radius) - 4px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 16px);
+  --radius-4xl: calc(var(--radius) + 24px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-blue: var(--primary-blue);
+  --color-dark-blue: var(--dark-blue);
+  --color-light-blue: var(--light-blue);
+  --color-secondary-teal: var(--secondary-teal);
+  --color-accent-orange: var(--accent-orange);
+  --color-light-gray: var(--light-gray);
+  --color-medium-gray: var(--medium-gray);
+  --color-text-dark: var(--text-dark);
+  --color-text-light: var(--text-light);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary-soft: var(--primary-soft);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent-soft: var(--accent-soft);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-surface: var(--surface);
+  --font-display: "Plus Jakarta Sans", "Noto Sans Sinhala", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Inter", "Noto Sans Sinhala", ui-sans-serif, system-ui, sans-serif;
+  --shadow-soft: 0 1px 2px rgb(26 54 93 / 0.04), 0 12px 32px -12px rgb(26 54 93 / 0.14);
+  --shadow-lift: 0 2px 6px rgb(26 54 93 / 0.06), 0 28px 60px -24px rgb(26 54 93 / 0.28);
+}
+
+:root {
+  --radius: 1rem;
+  --primary-blue: #2c5282;
+  --dark-blue: #1a365d;
+  --light-blue: #4299e1;
+  --secondary-teal: #38b2ac;
+  --accent-orange: #ed8936;
+  --light-gray: #f7fafc;
+  --medium-gray: #e2e8f0;
+  --text-dark: #2d3748;
+  --text-light: #718096;
+  --white: #ffffff;
+  --background: var(--white);
+  --surface: var(--light-gray);
+  --foreground: var(--text-dark);
+  --card: var(--white);
+  --card-foreground: var(--text-dark);
+  --popover: var(--white);
+  --popover-foreground: var(--text-dark);
+  --primary: var(--primary-blue);
+  --primary-foreground: var(--white);
+  --primary-soft: color-mix(in srgb, var(--light-blue) 15%, var(--white));
+  --secondary: var(--medium-gray);
+  --secondary-foreground: var(--dark-blue);
+  --muted: var(--light-gray);
+  --muted-foreground: var(--text-light);
+  --accent: var(--accent-orange);
+  --accent-foreground: var(--white);
+  --accent-soft: color-mix(in srgb, var(--accent-orange) 15%, var(--white));
+  --destructive: var(--accent-orange);
+  --destructive-foreground: var(--white);
+  --border: var(--medium-gray);
+  --input: var(--medium-gray);
+  --ring: var(--light-blue);
+}
+
+.dark {
+  --background: var(--dark-blue);
+  --surface: var(--primary-blue);
+  --foreground: var(--white);
+  --card: var(--primary-blue);
+  --card-foreground: var(--white);
+  --popover: var(--primary-blue);
+  --popover-foreground: var(--white);
+  --primary: var(--light-blue);
+  --primary-foreground: var(--dark-blue);
+  --primary-soft: color-mix(in srgb, var(--light-blue) 30%, var(--dark-blue));
+  --secondary: color-mix(in srgb, var(--medium-gray) 18%, var(--dark-blue));
+  --secondary-foreground: var(--white);
+  --muted: color-mix(in srgb, var(--medium-gray) 18%, var(--dark-blue));
+  --muted-foreground: var(--medium-gray);
+  --accent: var(--accent-orange);
+  --accent-foreground: var(--white);
+  --accent-soft: color-mix(in srgb, var(--accent-orange) 35%, var(--dark-blue));
+  --destructive: var(--accent-orange);
+  --destructive-foreground: var(--white);
+  --border: color-mix(in srgb, var(--medium-gray) 25%, transparent);
+  --input: color-mix(in srgb, var(--medium-gray) 30%, transparent);
+  --ring: var(--light-blue);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5.5rem;
+    min-width: 320px;
+  }
+
+  body {
+    width: 100%;
+    min-width: 320px;
+    margin: 0;
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  #root {
+    width: 100%;
+    min-width: 0;
+  }
+
+  img,
+  svg,
+  video,
+  iframe {
+    max-width: 100%;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+  }
+}
+
+@utility container-page {
+  width: 100%;
+  margin-inline: auto;
+  max-width: 80rem;
+  padding-inline: 1rem;
+
+  @media (min-width: 640px) {
+    padding-inline: 1.25rem;
+  }
+
+  @media (min-width: 1024px) {
+    padding-inline: 2rem;
+  }
+}
+
+@utility section-pad {
+  padding-block: 3.5rem;
+
+  @media (min-width: 640px) {
+    padding-block: 4.5rem;
+  }
+
+  @media (min-width: 768px) {
+    padding-block: 7rem;
+  }
+}
+
+@utility glass-panel {
+  background: color-mix(in oklab, var(--background) 72%, transparent);
+  backdrop-filter: blur(18px) saturate(150%);
+  border: 1px solid color-mix(in oklab, var(--border) 80%, transparent);
+}
+
+@utility card-soft {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-2xl);
+  box-shadow: var(--shadow-soft);
+  transition:
+    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+
+  &:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-lift);
+  }
+}
+
+@utility text-gradient-navy {
+  background: linear-gradient(
+    100deg,
+    var(--primary),
+    color-mix(in oklab, var(--primary) 55%, var(--accent))
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@utility hero-mesh {
+  background:
+    radial-gradient(60% 55% at 12% 8%, color-mix(in oklab, var(--primary) 14%, transparent), transparent 70%),
+    radial-gradient(45% 45% at 88% 12%, color-mix(in oklab, var(--accent) 12%, transparent), transparent 70%),
+    radial-gradient(55% 50% at 70% 95%, color-mix(in oklab, var(--secondary-teal) 12%, transparent), transparent 70%);
+}
+
+@keyframes class-logo-scroll {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.class-logo-marquee {
+  width: 100%;
+  overflow: hidden;
+  mask-image: linear-gradient(to right, transparent, black 7%, black 93%, transparent);
+}
+
+.class-logo-track {
+  display: flex;
+  width: max-content;
+  gap: 1rem;
+  animation: class-logo-scroll 30s linear infinite;
+}
+
+.class-logo-marquee:hover .class-logo-track,
+.class-logo-marquee:focus-within .class-logo-track {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .class-logo-track {
+    animation: none;
+  }
+}

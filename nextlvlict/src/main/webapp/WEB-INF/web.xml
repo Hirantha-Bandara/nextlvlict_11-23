@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="https://jakarta.ee/xml/ns/jakartaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd"
+          version="5.0">
+
+    <filter>
+        <filter-name>CORSFilter</filter-name>
+        <filter-class>com.nextlvlict.nextlvlict.controller.CORSFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>CORSFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>CSRFProtectionFilter</filter-name>
+        <filter-class>com.nextlvlict.nextlvlict.filter.CSRFProtectionFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>CSRFProtectionFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>SecurityHeadersFilter</filter-name>
+        <filter-class>com.nextlvlict.nextlvlict.filter.SecurityHeadersFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>SecurityHeadersFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <listener>
+        <listener-class>com.nextlvlict.nextlvlict.util.AppContextListener</listener-class>
+    </listener>
+
+    <!-- Session Configuration for Security -->
+    <!-- JSESSIONID cookie handling removed - using X-Auth-Token and X-Session-Id instead -->
+    <!-- Session tracking disabled to prevent JSESSIONID cookie generation -->
+    <session-config>
+        <tracking-mode>URL</tracking-mode>
+    </session-config>
+</web-app>

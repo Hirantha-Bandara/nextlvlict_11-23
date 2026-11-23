@@ -1,0 +1,304 @@
+CLASS FEE PAYMENT - CURRENT IMPLEMENTATION (FRONTEND)
+Date captured: 2026-05-19
+Project: scholar-access-zone
+
+==================================================
+1) OVERVIEW
+==================================================
+The class fee payment feature is implemented in the frontend as:
+- Student-side payment page: src/pages/ClassFeePayment.tsx
+- Route mapping: src/App.tsx (/payment)
+- Dashboard quick access: src/pages/Dashboard.tsx
+- Optional nav entry: src/components/DashboardNav.tsx
+- Admin-side verification: src/pages/AdminDashboard.tsx (and also src/pages/PaymentVerifications.tsx)
+- Shared request wrapper (now axios-based): src/lib/utils.ts (apiFetch)
+
+The student flow is:
+1. Load fee details and payment history from backend.
+2. If fee is pending/overdue, allow payment initiation.
+3. Receive payment payload from backend and POST to PayHere sandbox.
+4. Return/cancel status is handled via URL query params.
+
+The admin flow is:
+1. Load payment records from PaymentVerificationServlet.
+2. Verify or reject with notes/reason.
+3. Refresh records after action.
+
+==================================================
+2) ROUTE AND NAVIGATION
+==================================================
+CODE (src/App.tsx):
+--------------------------------------------------
+<Route path="/payment" element={<ClassFeePayment />} />
+--------------------------------------------------
+
+CODE (src/components/DashboardNav.tsx):
+--------------------------------------------------
+{
+  label: 'Class Fee Payment',
+  path: '/payment',
+  icon: CreditCard
+}
+--------------------------------------------------
+
+CODE (src/pages/Dashboard.tsx quick action):
+--------------------------------------------------
+{
+  title: 'Pay Fees',
+  description: 'View and pay pending fees',
+  icon: CreditCard,
+  to: '/payment',
+  buttonText: 'Pay Now'
+}
+--------------------------------------------------
+
+==================================================
+3) STUDENT CLASS FEE PAYMENT LOGIC
+==================================================
+File: src/pages/ClassFeePayment.tsx
+
+3.1 Fetch current fee details
+Backend endpoint used:
+- GET ClassFee?action=getFeeDetails&studentId={studentId}
+
+CODE:
+--------------------------------------------------
+const response = await apiFetch(
+  `ClassFee?action=getFeeDetails&studentId=${studentId}`,
+  {
+    method: 'GET',
+    credentials: 'include',
+    headers: { 'Accept': 'application/json' }
+  }
+);
+
+if (response.status === 401 || response.status === 403) {
+  handleSessionExpired();
+  return;
+}
+
+if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+
+const data = await response.json();
+if (data.success) {
+  setFeeDetails(data.feeDetails);
+} else {
+  setError(data.message || 'Failed to fetch fee details');
+}
+--------------------------------------------------
+
+3.2 Fetch payment history
+Backend endpoint used:
+- GET PaymentHistoryServlet
+
+CODE:
+--------------------------------------------------
+const response = await apiFetch(
+  'PaymentHistoryServlet',
+  {
+    method: 'GET',
+    credentials: 'include',
+    headers: { 'Accept': 'application/json' }
+  }
+);
+
+if (response.ok) {
+  const data = await response.json();
+  if (data.success) {
+    setPaymentHistory(data.payments || []);
+  }
+}
+--------------------------------------------------
+
+3.3 Initiate payment
+Backend endpoint used:
+- GET ClassFee?action=initiatePayment&studentId={studentId}
+
+CODE:
+--------------------------------------------------
+const response = await apiFetch(
+  `ClassFee?action=initiatePayment&studentId=${studentId}`,
+  {
+    method: 'GET',
+    credentials: 'include'
+  }
+);
+
+const data = await response.json();
+if (data.success && data.paymentData) {
+  submitToPayHere(data.paymentData);
+} else {
+  setError(data.message || 'Failed to initiate payment');
+  toast.error(data.message || 'Payment initiation failed');
+}
+--------------------------------------------------
+
+3.4 Redirect to PayHere sandbox
+The frontend builds an HTML form and submits to:
+- https://sandbox.payhere.lk/pay/checkout
+
+Required fields checked before submit:
+- merchant_id, return_url, cancel_url, notify_url
+- first_name, last_name, email, phone
+- address, city, country
+- order_id, items, currency, amount, hash
+
+CODE:
+--------------------------------------------------
+const form = document.createElement('form');
+form.method = 'POST';
+form.action = 'https://sandbox.payhere.lk/pay/checkout';
+
+requiredParams.forEach(key => {
+  const input = document.createElement('input');
+  input.type = 'hidden';
+  input.name = key;
+  input.value = paymentData[key];
+  form.appendChild(input);
+});
+
+document.body.appendChild(form);
+setTimeout(() => {
+  form.submit();
+}, 100);
+--------------------------------------------------
+
+3.5 Handle return/cancel after gateway redirect
+CODE:
+--------------------------------------------------
+const urlParams = new URLSearchParams(window.location.search);
+const action = urlParams.get('action');
+
+if (action === 'paymentReturn') {
+  toast.success("Payment completed successfully!");
+  fetchFeeDetails(studentId);
+  fetchPaymentHistory();
+  window.history.replaceState({}, document.title, window.location.pathname);
+} else if (action === 'paymentCancel') {
+  toast.error("Payment was cancelled");
+  window.history.replaceState({}, document.title, window.location.pathname);
+}
+--------------------------------------------------
+
+==================================================
+4) ADMIN PAYMENT VERIFICATION LOGIC
+==================================================
+Primary admin flow in: src/pages/AdminDashboard.tsx
+(also a dedicated page exists: src/pages/PaymentVerifications.tsx)
+
+4.1 Fetch payment verification records
+Backend endpoint used:
+- GET PaymentVerificationServlet?status={status}&studentId={studentId}
+
+CODE:
+--------------------------------------------------
+const response = await apiFetch(`PaymentVerificationServlet?${queryParams.toString()}`, {
+  credentials: 'include'
+});
+
+if (response.ok) {
+  const data = await response.json();
+  if (data.success) {
+    setClassFeePayments(data.payments || []);
+  }
+}
+--------------------------------------------------
+
+4.2 Verify payment
+Backend endpoint used:
+- POST PaymentVerificationServlet
+Form fields:
+- action=verify
+- paymentId
+- notes
+
+CODE:
+--------------------------------------------------
+const response = await apiFetch('PaymentVerificationServlet', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/x-www-form-urlencoded',
+  },
+  body: new URLSearchParams({
+    action: 'verify',
+    paymentId: selectedPayment.id.toString(),
+    notes: verificationNotes
+  }).toString(),
+  credentials: 'include'
+});
+--------------------------------------------------
+
+4.3 Reject payment
+Backend endpoint used:
+- POST PaymentVerificationServlet
+Form fields:
+- action=reject
+- paymentId
+- reason
+
+CODE:
+--------------------------------------------------
+const response = await apiFetch('PaymentVerificationServlet', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/x-www-form-urlencoded',
+  },
+  body: new URLSearchParams({
+    action: 'reject',
+    paymentId: selectedPayment.id.toString(),
+    reason: rejectReason
+  }).toString(),
+  credentials: 'include'
+});
+--------------------------------------------------
+
+==================================================
+5) REQUEST LAYER (AXIOS)
+==================================================
+All the above calls use apiFetch from src/lib/utils.ts.
+apiFetch now internally uses axios and returns a Response-like object
+(so existing response.ok/response.json()/response.headers.get() code still works).
+
+CODE (core):
+--------------------------------------------------
+const axiosResponse = await axios.request({
+  url,
+  method,
+  headers,
+  data,
+  responseType: 'json',
+});
+
+const resp: Partial<Response> = {
+  ok: axiosResponse.status >= 200 && axiosResponse.status < 300,
+  status: axiosResponse.status,
+  statusText: axiosResponse.statusText,
+  json: async () => axiosResponse.data,
+  text: async () => (typeof axiosResponse.data === 'string' ? axiosResponse.data : JSON.stringify(axiosResponse.data)),
+  headers: {
+    get: (name: string) => responseHeaders.get(name.toLowerCase()) || null,
+  } as any,
+};
+--------------------------------------------------
+
+==================================================
+6) BACKEND ENDPOINTS INVOLVED (AS CURRENTLY CALLED)
+==================================================
+Student side:
+- ClassFee?action=getFeeDetails&studentId={studentId}
+- ClassFee?action=initiatePayment&studentId={studentId}
+- PaymentHistoryServlet
+
+Admin side:
+- PaymentVerificationServlet?status={status}&studentId={studentId}
+- PaymentVerificationServlet (POST action=verify)
+- PaymentVerificationServlet (POST action=reject)
+
+==================================================
+7) CURRENT BEHAVIOR SUMMARY
+==================================================
+- Student can view current monthly fee, due/paid status, and payment history.
+- If unpaid, student can initiate payment and is redirected to PayHere sandbox.
+- URL query action handles return/cancel and refreshes fee state.
+- Admin can list payment records, verify/reject them, and refresh results.
+- HTTP requests are centralized through axios-based apiFetch.

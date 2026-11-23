@@ -1,0 +1,10 @@
+[[redirects]]
+  from = "/nextlvlict/*"
+  to = "https://tomcat.kaleox.com/nextlvlict/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

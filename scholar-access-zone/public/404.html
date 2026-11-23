@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="The page you are looking for could not be found.">
+    <title>Page not found | Scholar Access Zone</title>
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap");
+
+        :root {
+            color-scheme: dark;
+            font-family: "Roboto Mono", monospace;
+            background: #000;
+            color: #fff;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            margin: 0;
+            display: grid;
+            place-items: center;
+            padding: 2rem;
+            background: #000;
+        }
+
+        .container {
+            width: min(100%, 42rem);
+            text-align: center;
+        }
+
+        .error-code {
+            margin: 0;
+            color: #ffe500;
+            font-size: clamp(4rem, 18vw, 8rem);
+            line-height: 1;
+        }
+
+        .message {
+            margin: 1.5rem 0 2rem;
+            font-size: clamp(1rem, 3vw, 1.5rem);
+            line-height: 1.6;
+        }
+
+        .actions {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.75rem;
+        }
+
+        .button {
+            display: inline-block;
+            border: 1px solid #ffe500;
+            border-radius: 0.25rem;
+            padding: 0.75rem 1.25rem;
+            color: #ffe500;
+            font: inherit;
+            text-decoration: none;
+            background: transparent;
+            cursor: pointer;
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+
+        .button:hover,
+        .button:focus-visible {
+            color: #000;
+            background: #ffe500;
+        }
+
+        .button:focus-visible {
+            outline: 2px solid #fff;
+            outline-offset: 3px;
+        }
+
+        .button--secondary {
+            border-color: #666;
+            color: #fff;
+        }
+
+        .button--secondary:hover,
+        .button--secondary:focus-visible {
+            border-color: #fff;
+            background: #fff;
+        }
+
+        @media (prefers-reduced-motion: no-preference) {
+            .error-code {
+                animation: pulse 2s ease-in-out infinite;
+            }
+
+            @keyframes pulse {
+                50% {
+                    opacity: 0.55;
+                }
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <main class="container">
+        <p class="error-code" aria-label="Error 404">404</p>
+        <p class="message">The page you are looking for could not be found.</p>
+        <!-- <nav class="actions" aria-label="Page navigation">
+            <a class="button" href="/">Return home</a>
+            <button class="button button--secondary" type="button" id="back-button">Go back</button>
+        </nav> -->
+    </main>
+
+    <script>
+        document.getElementById("back-button").addEventListener("click", function () {
+            if (window.history.length > 1) {
+                window.history.back();
+            } else {
+                window.location.href = "/";
+            }
+        });
+    </script>
+</body>
+
+</html>
