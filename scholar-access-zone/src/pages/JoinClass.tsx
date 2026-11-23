@@ -178,39 +178,39 @@ const JoinClass = () => {
       />
 
       <motion.section variants={portalItemVariants} className="grid grid-cols-2 gap-3">
-        <Card className="border-0 shadow-sm">
+        <Card className="nl-card border-0">
           <CardContent className="flex items-center gap-3 p-4">
-            <span className="flex h-11 w-11 items-center justify-center rounded-md bg-sky-50 text-[#0f5f8f]">
+            <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-nl-blue/10 text-nl-blue">
               <Calendar className="h-5 w-5" />
             </span>
             <span>
-              <span className="block text-2xl font-bold text-slate-950">{classSchedules.length}</span>
-              <span className="text-sm font-medium text-slate-500">Classes</span>
+              <span className="font-display block text-2xl font-bold text-nl-ink">{classSchedules.length}</span>
+              <span className="text-sm font-medium text-nl-steel">Classes</span>
             </span>
           </CardContent>
         </Card>
-        <Card className="border-0 shadow-sm">
+        <Card className="nl-card border-0">
           <CardContent className="flex items-center gap-3 p-4">
-            <span className="flex h-11 w-11 items-center justify-center rounded-md bg-teal-50 text-[#00796b]">
+            <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-nl-teal/10 text-nl-teal">
               <Users className="h-5 w-5" />
             </span>
             <span className="min-w-0">
-              <span className="block truncate text-lg font-bold text-slate-950">{studentGrade?.name || 'Grade'}</span>
-              <span className="text-sm font-medium text-slate-500">Your level</span>
+              <span className="font-display block truncate text-lg font-bold text-nl-ink">{studentGrade?.name || 'Grade'}</span>
+              <span className="text-sm font-medium text-nl-steel">Your level</span>
             </span>
           </CardContent>
         </Card>
       </motion.section>
 
       {classSchedules.length === 0 ? (
-        <motion.section variants={portalItemVariants} className="rounded-lg border border-slate-200 bg-white p-8 text-center shadow-sm">
-          <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-lg bg-sky-50 text-[#0f5f8f]">
+        <motion.section variants={portalItemVariants} className="nl-card p-8 text-center">
+          <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-nl-blue/10 text-nl-blue">
             <AlertCircle className="h-7 w-7" />
           </div>
-          <h2 className="text-lg font-bold text-slate-950">
+          <h2 className="font-display text-lg font-bold text-nl-ink">
             {paymentRequired ? 'Monthly fee payment required' : 'No classes available'}
           </h2>
-          <p className="mx-auto mt-2 max-w-md text-sm leading-6 text-slate-500">
+          <p className="mx-auto mt-2 max-w-md text-sm leading-6 text-nl-steel">
             {paymentRequired
               ? 'Please pay your monthly fee to view your class schedule. The due date is the 10th of each month.'
               : `There are currently no scheduled classes for ${studentGrade?.name || 'your grade'}. Check back later or contact your administrator.`
@@ -218,7 +218,7 @@ const JoinClass = () => {
           </p>
           {paymentRequired && (
             <Button
-              className="mt-4 bg-[#0f5f8f] text-white hover:bg-[#0b4d75]"
+              className="mt-4 rounded-xl bg-nl-blue text-white shadow-soft hover:bg-nl-navy"
               onClick={() => navigate('/dashboard')}
             >
               Go to Dashboard to Pay
@@ -232,26 +232,26 @@ const JoinClass = () => {
               key={schedule.id}
               variants={portalItemVariants}
               whileTap={{ scale: 0.99 }}
-              className="overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm"
+              className="nl-card nl-card-interactive overflow-hidden"
             >
-              <div className="bg-[#102a43] p-4 text-white">
+              <div className="nl-hero-mesh bg-gradient-to-br from-nl-navy via-nl-blue to-nl-sky p-4 text-white">
                 <div className="flex items-start justify-between gap-3">
                   <div>
                     <div className="flex items-center gap-2">
-                      <p className="text-sm font-semibold text-slate-300">{schedule.grade?.name || 'Class'}</p>
+                      <p className="text-sm font-semibold text-white/75">{schedule.grade?.name || 'Class'}</p>
                       {(schedule.classTypeName || (typeof schedule.classType === 'object' && schedule.classType?.name) || (typeof schedule.classType === 'string' && schedule.classType)) && (
-                        <Badge className="bg-sky-400/20 text-sky-200 border-sky-300/30 text-xs px-2 py-0.5">
+                        <Badge className="border-white/25 bg-white/10 px-2 py-0.5 text-xs text-white/85 hover:bg-white/15">
                           {schedule.classTypeName || (typeof schedule.classType === 'object' ? schedule.classType?.name : schedule.classType)}
                         </Badge>
                       )}
                     </div>
-                    <h2 className="mt-1 text-xl font-bold">{schedule.day?.name || 'TBA'}</h2>
+                    <h2 className="font-display mt-1 text-xl font-bold">{schedule.day?.name || 'TBA'}</h2>
                   </div>
                   <Badge className="bg-white/10 text-white hover:bg-white/10">
                     Available
                   </Badge>
                 </div>
-                <div className="mt-4 inline-flex items-center gap-2 rounded-md bg-white/10 px-3 py-2 text-sm font-semibold">
+                <div className="mt-4 inline-flex items-center gap-2 rounded-xl bg-white/10 px-3 py-2 text-sm font-semibold backdrop-blur-sm">
                   <Clock className="h-4 w-4" />
                   {schedule.startTime && schedule.endTime
                     ? `${formatTime(schedule.startTime)} - ${formatTime(schedule.endTime)}`
@@ -260,11 +260,11 @@ const JoinClass = () => {
               </div>
 
               <div className="space-y-4 p-4">
-                <p className="min-h-16 text-sm leading-6 text-slate-600">
+                <p className="min-h-16 text-sm leading-6 text-nl-steel">
                   {schedule.description || 'Class details will be shared by your teacher.'}
                 </p>
                 <Button
-                  className="h-12 w-full bg-[#0f5f8f] text-white hover:bg-[#0b4d75]"
+                  className="h-12 w-full rounded-xl bg-nl-blue text-white shadow-soft hover:bg-nl-navy"
                   onClick={() => handleJoinZoom(schedule.zoomLink, schedule.grade?.name)}
                   disabled={!schedule.zoomLink}
                 >

@@ -815,11 +815,11 @@ const ClassMaterials = () => {
   };
 
   const EmptyState = ({ icon: Icon, title }: { icon: React.ElementType; title: string }) => (
-    <div className="rounded-lg border border-slate-200 bg-white p-8 text-center shadow-sm">
-      <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-lg bg-sky-50 text-[#0f5f8f]">
+    <div className="nl-card p-8 text-center">
+      <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-nl-blue/10 text-nl-blue">
         <Icon className="h-7 w-7" />
       </div>
-      <p className="font-semibold text-slate-950">{title}</p>
+      <p className="font-semibold text-nl-ink">{title}</p>
     </div>
   );
 
@@ -843,7 +843,7 @@ const ClassMaterials = () => {
       <motion.article
         key={recording.id}
         variants={portalItemVariants}
-        className={`overflow-hidden rounded-lg border bg-white shadow-sm hover:shadow-md transition ${isExpired ? 'border-red-200 opacity-75' : 'border-slate-200'}`}
+        className={`nl-card nl-card-interactive overflow-hidden transition ${isExpired ? 'border-nl-orange/30 opacity-75' : 'border-nl-line'}`}
       >
         <div className="relative">
           <img
@@ -858,12 +858,12 @@ const ClassMaterials = () => {
                 variant="outline"
                 className={`flex items-center gap-1 ${
                   isExpired
-                    ? 'border-red-200 bg-red-50 text-red-700'
+                    ? 'border-nl-orange/30 bg-nl-orange/10 text-nl-orange'
                     : recording.isUnlocked
-                      ? 'border-emerald-200 bg-emerald-50 text-emerald-700'
+                      ? 'border-nl-teal/25 bg-nl-teal/10 text-nl-teal'
                       : recording.hasRequested
-                        ? 'border-sky-200 bg-sky-50 text-sky-700'
-                        : 'border-amber-200 bg-amber-50 text-amber-700'
+                        ? 'border-nl-blue/25 bg-nl-blue/10 text-nl-blue'
+                        : 'border-nl-orange/30 bg-nl-orange/10 text-nl-orange'
                 }`}
               >
                 {isExpired ? <AlertTriangle className="h-3 w-3" /> : recording.isUnlocked ? <Unlock className="h-3 w-3" /> : <Lock className="h-3 w-3" />}
@@ -874,24 +874,24 @@ const ClassMaterials = () => {
         </div>
         <div className="space-y-4 p-4">
           <div>
-            <p className="text-sm font-semibold text-[#0f5f8f]">{recording.subject}</p>
-            <h2 className="mt-1 text-lg font-bold text-slate-950">{recording.title}</h2>
-            <p className="mt-2 flex items-center gap-2 text-sm text-slate-500">
+            <p className="text-sm font-semibold text-nl-blue">{recording.subject}</p>
+            <h2 className="font-display mt-1 text-lg font-bold text-nl-ink">{recording.title}</h2>
+            <p className="mt-2 flex items-center gap-2 text-sm text-nl-steel">
               <Calendar className="h-4 w-4" />
               {formatDate(recording.date)}
             </p>
           </div>
 
           {!isFree && (
-            <p className="text-2xl font-bold text-[#00796b]">
+            <p className="font-display text-2xl font-bold text-nl-teal">
               {formatPrice(recording.price || 0)}
             </p>
           )}
 
           {/* Countdown timer for expiring recordings */}
           {!isFree && recording.isUnlocked && !recording.isPaid && recording.expiresAt && !isExpired && (
-            <div className="rounded-md border border-amber-200 bg-amber-50 p-3">
-              <div className="flex items-center gap-2 text-sm text-amber-700">
+            <div className="rounded-xl border border-nl-orange/30 bg-nl-orange/10 p-3">
+              <div className="flex items-center gap-2 text-sm text-nl-orange">
                 <Clock className="h-4 w-4" />
                 <span className="font-medium">Expires in:</span>
                 <span className="font-bold">{formatCountdown(recording.expiresAt)}</span>
@@ -900,7 +900,7 @@ const ClassMaterials = () => {
           )}
 
           {isFree ? (
-            <Button className="h-12 w-full bg-emerald-600 text-white hover:bg-emerald-700 font-semibold" onClick={() => handleStreamVideo(recording)}>
+            <Button className="h-12 w-full rounded-xl bg-nl-teal text-white font-semibold shadow-soft hover:bg-nl-teal/90" onClick={() => handleStreamVideo(recording)}>
               <Play className="h-4 w-4 mr-1" />
               Watch Free Video
             </Button>
@@ -908,12 +908,12 @@ const ClassMaterials = () => {
             <>
               {isExpired ? (
                 <div className="space-y-2">
-                  <p className="rounded-md border border-red-200 bg-red-50 p-3 text-sm text-red-700">
+                  <p className="rounded-xl border border-nl-orange/30 bg-nl-orange/10 p-3 text-sm text-nl-orange">
                     This recording has expired. Please purchase to regain access.
                   </p>
                   <Button
                     disabled={processingTuteId === recording.id}
-                    className="h-12 w-full bg-[#0f5f8f] text-white hover:bg-[#0b4d75]"
+                    className="h-12 w-full rounded-xl bg-nl-blue text-white shadow-soft hover:bg-nl-navy"
                     onClick={() => handleBuyRecording(recording)}
                   >
                     {processingTuteId === recording.id ? (
@@ -930,22 +930,22 @@ const ClassMaterials = () => {
                   </Button>
                 </div>
               ) : !recording.isUnlocked && !recording.hasRequested ? (
-                <p className="rounded-md border border-amber-200 bg-amber-50 p-3 text-sm text-amber-700">
+                <p className="rounded-xl border border-nl-orange/30 bg-nl-orange/10 p-3 text-sm text-nl-orange">
                   Purchase this recording or request access to unlock.
                 </p>
               ) : recording.hasRequested && !recording.isUnlocked ? (
-                <p className="rounded-md border border-sky-200 bg-sky-50 p-3 text-sm text-sky-700">
+                <p className="rounded-xl border border-nl-blue/25 bg-nl-blue/10 p-3 text-sm text-nl-blue">
                   Request submitted. Waiting for admin approval.
                 </p>
               ) : null}
 
               {recording.isUnlocked && !isExpired ? (
-                <Button className="h-12 w-full bg-[#0f5f8f] text-white hover:bg-[#0b4d75]" onClick={() => handleStreamVideo(recording)}>
+                <Button className="h-12 w-full rounded-xl bg-nl-blue text-white shadow-soft hover:bg-nl-navy" onClick={() => handleStreamVideo(recording)}>
                   <Play className="h-4 w-4 mr-1" />
                   Watch Video
                 </Button>
               ) : recording.hasRequested && !recording.isUnlocked ? (
-                <Button className="h-12 w-full bg-slate-300 text-white" disabled>
+                <Button className="h-12 w-full rounded-xl bg-nl-line text-white" disabled>
                   <Loader2 className="h-4 w-4 animate-spin mr-1" />
                   Request Pending
                 </Button>
@@ -953,7 +953,7 @@ const ClassMaterials = () => {
                 <div className="space-y-2">
                   <Button
                     disabled={processingTuteId === recording.id}
-                    className="h-12 w-full bg-[#0f5f8f] text-white hover:bg-[#0b4d75]"
+                    className="h-12 w-full rounded-xl bg-nl-blue text-white shadow-soft hover:bg-nl-navy"
                     onClick={() => handleBuyRecording(recording)}
                   >
                     {processingTuteId === recording.id ? (
@@ -971,7 +971,7 @@ const ClassMaterials = () => {
                   <Button
                     disabled={processingTuteId === recording.id}
                     variant="outline"
-                    className="h-12 w-full border-[#00796b] text-[#00796b] hover:bg-[#00796b] hover:text-white"
+                    className="h-12 w-full rounded-xl border-nl-teal text-nl-teal hover:bg-nl-teal hover:text-white"
                     onClick={() => handleRequestUnlock(recording.id, recording.subject)}
                   >
                     {processingTuteId === recording.id ? (
@@ -1006,7 +1006,7 @@ const ClassMaterials = () => {
       <motion.article
         key={tute.id}
         variants={portalItemVariants}
-        className="overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm hover:shadow-md transition flex flex-col justify-between"
+        className="nl-card nl-card-interactive overflow-hidden flex flex-col justify-between"
       >
         {tute.cover_image_url && <img src={tute.cover_image_url} alt={`${tute.title} cover`} className="h-40 w-full object-cover" />}
         <div className="p-5">
@@ -1014,15 +1014,15 @@ const ClassMaterials = () => {
             <div className="min-w-0">
               <div className="flex items-center gap-2 flex-wrap mb-1">
                 {gradeVal && (
-                  <span className="text-xs font-semibold text-[#0f5f8f] bg-sky-50 px-2.5 py-0.5 rounded border border-sky-100">
+                  <span className="text-xs font-semibold text-nl-blue bg-nl-blue/10 px-2.5 py-0.5 rounded-full border border-nl-blue/20">
                     {gradeVal.toLowerCase().includes('grade') ? gradeVal : `Grade ${gradeVal}`}
                   </span>
                 )}
-                <Badge variant="outline" className="bg-[#0f5f8f]/10 text-[#0f5f8f] border-[#0f5f8f]/20 font-medium">
+                <Badge variant="outline" className="bg-nl-blue/10 text-nl-blue border-nl-blue/20 font-medium">
                   {typeName}
                 </Badge>
               </div>
-              <h2 className="text-lg font-bold text-slate-950 mt-1.5">{tute.title}</h2>
+              <h2 className="font-display text-lg font-bold text-nl-ink mt-1.5">{tute.title}</h2>
             </div>
             <div className="flex items-center gap-2 shrink-0">
               <AccessBadge accessType={isFree ? 'FREE' : 'PAID'} />
@@ -1031,10 +1031,10 @@ const ClassMaterials = () => {
                   variant="outline"
                   className={
                     tute.isPurchased
-                      ? 'border-emerald-200 bg-emerald-50 text-emerald-700'
+                      ? 'border-nl-teal/25 bg-nl-teal/10 text-nl-teal'
                       : tute.hasRequested
-                        ? 'border-sky-200 bg-sky-50 text-sky-700'
-                        : 'border-slate-200 bg-slate-50 text-slate-700'
+                        ? 'border-nl-blue/25 bg-nl-blue/10 text-nl-blue'
+                        : 'border-nl-line bg-nl-mist text-nl-steel'
                   }
                 >
                   {tute.isPurchased ? 'Purchased' : tute.hasRequested ? 'Pending' : 'Available'}
@@ -1045,18 +1045,18 @@ const ClassMaterials = () => {
 
           <div className="mt-4 space-y-2">
             {tute.date && (
-              <p className="flex items-center gap-2 text-xs text-slate-500">
+              <p className="flex items-center gap-2 text-xs text-nl-steel">
                 <Calendar className="h-3.5 w-3.5" />
                 {formatDate(tute.date)}
               </p>
             )}
             {!isFree && (
-              <p className="text-2xl font-bold text-[#00796b]">
+              <p className="font-display text-2xl font-bold text-nl-teal">
                 {formatPrice(tute.price)}
               </p>
             )}
             {tute.description && (
-              <p className="text-sm leading-relaxed text-slate-600">{tute.description}</p>
+              <p className="text-sm leading-relaxed text-nl-steel">{tute.description}</p>
             )}
           </div>
         </div>
@@ -1064,7 +1064,7 @@ const ClassMaterials = () => {
         <div className="mt-5">
           {isFree ? (
             <Button
-              className="h-11 w-full bg-emerald-600 text-white hover:bg-emerald-700 font-semibold flex items-center justify-center gap-2"
+              className="h-11 w-full rounded-xl bg-nl-teal text-white font-semibold shadow-soft hover:bg-nl-teal/90 flex items-center justify-center gap-2"
               onClick={() => {
                 if (downloadLink && downloadLink !== '#') {
                   window.open(downloadLink, '_blank');
@@ -1077,19 +1077,19 @@ const ClassMaterials = () => {
               Download {typeName}
             </Button>
           ) : tute.isPurchased ? (
-            <Button className="h-11 w-full bg-[#00796b] text-white hover:bg-[#00695c] flex items-center justify-center gap-2" onClick={() => window.open(downloadLink, '_blank')}>
+            <Button className="h-11 w-full rounded-xl bg-nl-teal text-white shadow-soft hover:bg-nl-teal/90 flex items-center justify-center gap-2" onClick={() => window.open(downloadLink, '_blank')}>
               <FileCheck className="h-4 w-4" />
               Access {typeName}
             </Button>
           ) : tute.hasRequested ? (
-            <Button className="h-11 w-full bg-slate-300 text-white" disabled>
+            <Button className="h-11 w-full rounded-xl bg-nl-line text-white" disabled>
               <ShoppingCart className="h-4 w-4 mr-1" />
               Purchase Pending
             </Button>
           ) : (
             <Button
               disabled={processingTuteId === tute.id}
-              className="h-11 w-full bg-[#0f5f8f] text-white hover:bg-[#0b4d75]"
+              className="h-11 w-full rounded-xl bg-nl-blue text-white shadow-soft hover:bg-nl-navy"
               onClick={() => handleBuyTute(tute)}
             >
               {processingTuteId === tute.id ? (
@@ -1172,11 +1172,11 @@ const ClassMaterials = () => {
     return (
       <div className="space-y-8">
         {sortedGroups.map(({ gradeKey, gradeName, items: gradeItems }) => (
-          <section key={gradeKey} className="space-y-4 bg-slate-50/50 p-4 rounded-xl border border-slate-200">
-            <div className="flex items-center gap-2 border-b border-slate-200 pb-2.5">
-              <GraduationCap className="h-5 w-5 text-[#00afa1]" />
-              <h2 className="text-lg font-bold text-slate-900">{gradeName}</h2>
-              <Badge className="bg-[#0f5f8f] text-white border-0">{gradeItems.length} {gradeItems.length === 1 ? 'Paper' : 'Papers'}</Badge>
+          <section key={gradeKey} className="nl-card space-y-4 p-4">
+            <div className="flex items-center gap-2 border-b border-nl-line pb-2.5">
+              <GraduationCap className="h-5 w-5 text-nl-teal" />
+              <h2 className="font-display text-lg font-bold text-nl-ink">{gradeName}</h2>
+              <Badge className="rounded-full bg-nl-blue text-white border-0 shadow-soft">{gradeItems.length} {gradeItems.length === 1 ? 'Paper' : 'Papers'}</Badge>
             </div>
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
               {gradeItems.map(renderTuteCard)}
@@ -1198,21 +1198,21 @@ const ClassMaterials = () => {
 
       {/* Active Filter Banner */}
       {(selectedGradeFilter || accessFilter !== 'ALL') && (
-        <div className="flex items-center justify-between gap-3 bg-sky-50 border border-sky-200 p-3.5 rounded-xl text-sm text-[#0f5f8f] mb-4 shadow-sm">
+        <div className="nl-glass flex items-center justify-between gap-3 border border-nl-blue/25 p-3.5 rounded-2xl text-sm text-nl-blue mb-4">
           <div className="flex items-center gap-2 flex-wrap">
-            <Filter className="h-4 w-4 shrink-0 text-[#00afa1]" />
-            <span className="font-bold text-slate-800">Active Filters:</span>
+            <Filter className="h-4 w-4 shrink-0 text-nl-teal" />
+            <span className="font-bold text-nl-ink">Active Filters:</span>
             {selectedGradeFilter && (
-              <Badge variant="outline" className="bg-white text-[#0f5f8f] border-sky-300 gap-1.5 font-bold py-1">
-                <GraduationCap className="h-3.5 w-3.5 text-[#00afa1]" />
+              <Badge variant="outline" className="bg-white text-nl-blue border-nl-blue/30 gap-1.5 font-bold py-1">
+                <GraduationCap className="h-3.5 w-3.5 text-nl-teal" />
                 Grade: {selectedGradeFilter}
-                <button type="button" onClick={() => setSelectedGradeFilter(null)} className="ml-1 hover:text-red-500">
+                <button type="button" onClick={() => setSelectedGradeFilter(null)} className="ml-1 hover:text-nl-orange">
                   <X className="h-3.5 w-3.5" />
                 </button>
               </Badge>
             )}
             {accessFilter !== 'ALL' && (
-              <Badge variant="outline" className="bg-emerald-50 text-emerald-800 border-emerald-300 font-bold py-1">
+              <Badge variant="outline" className="bg-nl-teal/10 text-nl-teal border-nl-teal/30 font-bold py-1">
                 Access: {accessFilter}
               </Badge>
             )}
@@ -1222,7 +1222,7 @@ const ClassMaterials = () => {
               variant="ghost"
               size="sm"
               onClick={() => setSelectedGradeFilter(null)}
-              className="h-8 text-xs text-[#0f5f8f] hover:bg-sky-100 font-semibold"
+              className="h-8 text-xs text-nl-blue hover:bg-nl-blue/10 font-semibold"
             >
               Clear Grade Filter
             </Button>
@@ -1233,18 +1233,18 @@ const ClassMaterials = () => {
       {/* Top Stats */}
       <motion.section variants={portalItemVariants} className="grid grid-cols-4 gap-3">
         {[
-          { label: 'Total Recordings', value: recordings.length, icon: FileVideo, tone: 'bg-sky-50 text-[#0f5f8f]' },
-          { label: 'Total Materials', value: allTutesList.length, icon: ShoppingCart, tone: 'bg-teal-50 text-[#00796b]' },
-          { label: 'Free Resources', value: freeRecordings.length + freeTutesAll.length, icon: Sparkles, tone: 'bg-emerald-50 text-emerald-700' },
-          { label: 'Paid Resources', value: paidRecordings.length + paidTutesAll.length, icon: DollarSign, tone: 'bg-blue-50 text-blue-700' }
+          { label: 'Total Recordings', value: recordings.length, icon: FileVideo, tone: 'bg-nl-blue/10 text-nl-blue' },
+          { label: 'Total Materials', value: allTutesList.length, icon: ShoppingCart, tone: 'bg-nl-teal/10 text-nl-teal' },
+          { label: 'Free Resources', value: freeRecordings.length + freeTutesAll.length, icon: Sparkles, tone: 'bg-nl-teal/10 text-nl-teal' },
+          { label: 'Paid Resources', value: paidRecordings.length + paidTutesAll.length, icon: DollarSign, tone: 'bg-nl-sky/10 text-nl-sky' }
         ].map((item) => (
-          <Card key={item.label} className="border-0 shadow-sm">
+          <Card key={item.label} className="nl-card border-0">
             <CardContent className="p-3 sm:p-4">
-              <div className={`mb-3 flex h-10 w-10 items-center justify-center rounded-md ${item.tone}`}>
+              <div className={`mb-3 flex h-10 w-10 items-center justify-center rounded-xl ${item.tone}`}>
                 <item.icon className="h-5 w-5" />
               </div>
-              <p className="text-2xl font-bold text-slate-950">{item.value}</p>
-              <p className="text-xs font-medium text-slate-500">{item.label}</p>
+              <p className="font-display text-2xl font-bold text-nl-ink">{item.value}</p>
+              <p className="text-xs font-semibold uppercase tracking-wider text-nl-steel">{item.label}</p>
             </CardContent>
           </Card>
         ))}
@@ -1252,7 +1252,7 @@ const ClassMaterials = () => {
 
       <motion.section variants={portalItemVariants}>
         <Tabs value={currentTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className={`mb-4 grid h-auto w-full grid-cols-${Math.min(resourceTypes.length + 1, 5)} rounded-lg bg-white p-1 shadow-sm`}>
+          <TabsList className={`mb-4 grid h-auto w-full grid-cols-${Math.min(resourceTypes.length + 1, 5)} rounded-2xl bg-nl-mist p-1`}>
             {resourceTypes.map((type) => {
               const typeItems = materialsByType[type.id] || [];
               const isQuestionPapers = type.id === 2 || type.name.toLowerCase().includes('paper') || type.name.toLowerCase().includes('question');
@@ -1266,7 +1266,7 @@ const ClassMaterials = () => {
                 <TabsTrigger
                   key={type.id}
                   value={`type-${type.id}`}
-                  className="h-11 gap-2 data-[state=active]:bg-[#0f5f8f] data-[state=active]:text-white font-medium"
+                  className="h-11 gap-2 rounded-xl font-medium data-[state=active]:bg-gradient-to-r data-[state=active]:from-nl-blue data-[state=active]:to-nl-navy data-[state=active]:text-white data-[state=active]:shadow-soft"
                 >
                   <ShoppingCart className="h-4 w-4" />
                   {type.name} ({filteredTypeItems.length})
@@ -1275,7 +1275,7 @@ const ClassMaterials = () => {
             })}
             <TabsTrigger
               value="recordings"
-              className="h-11 gap-2 data-[state=active]:bg-[#0f5f8f] data-[state=active]:text-white font-medium"
+              className="h-11 gap-2 rounded-xl font-medium data-[state=active]:bg-gradient-to-r data-[state=active]:from-nl-blue data-[state=active]:to-nl-navy data-[state=active]:text-white data-[state=active]:shadow-soft"
             >
               <FileVideo className="h-4 w-4" />
               Recordings ({recordings.length})
@@ -1324,9 +1324,9 @@ const ClassMaterials = () => {
                     {freeItems.length > 0 && (
                       <div>
                         {/* <div className="flex items-center gap-2 mb-4 border-b pb-2">
-                          <Sparkles className="h-5 w-5 text-emerald-600" />
-                          <h3 className="text-lg font-bold text-slate-900">Free {type.name}</h3>
-                          <Badge className="bg-emerald-100 text-emerald-800 border-0">{freeItems.length}</Badge>
+                          <Sparkles className="h-5 w-5 text-nl-teal" />
+                          <h3 className="text-lg font-bold text-nl-ink">Free {type.name}</h3>
+                          <Badge className="bg-nl-teal/10 text-nl-teal border-0">{freeItems.length}</Badge>
                         </div> */}
                         {isQuestionPapers ? renderGroupedByGrade(freeItems) : (
                           <div className="grid gap-4 md:grid-cols-2">
@@ -1340,9 +1340,9 @@ const ClassMaterials = () => {
                     {paidItems.length > 0 && (
                       <div>
                         {/* <div className="flex items-center gap-2 mb-4 border-b pb-2">
-                          <DollarSign className="h-5 w-5 text-blue-600" />
-                          <h3 className="text-lg font-bold text-slate-900">Paid {type.name}</h3>
-                          <Badge className="bg-blue-100 text-blue-800 border-0">{paidItems.length}</Badge>
+                          <DollarSign className="h-5 w-5 text-nl-blue" />
+                          <h3 className="text-lg font-bold text-nl-ink">Paid {type.name}</h3>
+                          <Badge className="bg-nl-blue/10 text-nl-blue border-0">{paidItems.length}</Badge>
                         </div> */}
                         <div className="grid gap-4 md:grid-cols-2">
                           {paidItems.map(renderTuteCard)}
@@ -1369,9 +1369,9 @@ const ClassMaterials = () => {
                 {freeRecordings.length > 0 && (
                   <div>
                     {/* <div className="flex items-center gap-2 mb-3 border-b pb-2">
-                      <Sparkles className="h-5 w-5 text-emerald-600" />
-                      <h3 className="text-lg font-bold text-slate-900">Free Recordings</h3>
-                      <Badge className="bg-emerald-100 text-emerald-800 border-0">{freeRecordings.length}</Badge>
+                      <Sparkles className="h-5 w-5 text-nl-teal" />
+                      <h3 className="text-lg font-bold text-nl-ink">Free Recordings</h3>
+                      <Badge className="bg-nl-teal/10 text-nl-teal border-0">{freeRecordings.length}</Badge>
                     </div> */}
                     <div className="grid gap-4 md:grid-cols-2">
                       {freeRecordings.map(renderRecordingCard)}
@@ -1383,9 +1383,9 @@ const ClassMaterials = () => {
                 {paidRecordings.length > 0 && (
                   <div>
                     {/* <div className="flex items-center gap-2 mb-3 border-b pb-2">
-                      <DollarSign className="h-5 w-5 text-blue-600" />
-                      <h3 className="text-lg font-bold text-slate-900">Paid Recordings</h3>
-                      <Badge className="bg-blue-100 text-blue-800 border-0">{paidRecordings.length}</Badge>
+                      <DollarSign className="h-5 w-5 text-nl-blue" />
+                      <h3 className="text-lg font-bold text-nl-ink">Paid Recordings</h3>
+                      <Badge className="bg-nl-blue/10 text-nl-blue border-0">{paidRecordings.length}</Badge>
                     </div> */}
                     <div className="grid gap-4 md:grid-cols-2">
                       {paidRecordings.map(renderRecordingCard)}

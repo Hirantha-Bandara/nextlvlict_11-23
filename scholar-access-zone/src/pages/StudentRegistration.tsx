@@ -111,7 +111,7 @@ const Slideshow = () => {
   };
 
   return (
-    <div className="relative h-full w-full overflow-hidden bg-gradient-to-br from-blue-900 to-purple-900">
+    <div className="relative h-full w-full overflow-hidden bg-gradient-to-br from-nl-navy via-nl-blue to-nl-sky">
       <div
         className="flex transition-transform duration-700 ease-in-out h-full"
         style={{ transform: `translateX(-${currentSlide * 100}%)` }}
@@ -446,11 +446,11 @@ const StudentRegistration = () => {
 
   if (currentStep === 3) {
     return (
-      <div className="min-h-screen flex flex-col justify-center items-center bg-gray-50 p-4">
+      <div className="student-portal-theme min-h-screen flex flex-col justify-center items-center bg-nl-mist p-4">
         <div className="w-full max-w-xl animate-fade-in">
-          <Card className="shadow-lg border-0">
+          <Card className="nl-card rounded-2xl border-0">
             <CardHeader className="space-y-1">
-              <CardTitle className="text-2xl font-bold text-center text-[#3c6299]">Registration Successful!</CardTitle>
+              <CardTitle className="text-2xl font-bold text-center text-nl-blue">Registration Successful!</CardTitle>
               <CardDescription className="text-center">
                 Your student account has been created successfully
               </CardDescription>
@@ -458,10 +458,10 @@ const StudentRegistration = () => {
             <CardContent className="text-center">
               <div className="my-6">
                 <p className="text-lg font-semibold mb-2">Your Student ID is:</p>
-                <div className="text-3xl font-bold text-[#3c6299] bg-blue-50 p-4 rounded-lg border border-blue-200">
+                <div className="text-3xl font-bold text-nl-blue bg-nl-blue/10 p-4 rounded-xl border border-nl-blue/25">
                   {studentId}
                 </div>
-                <p className="text-sm text-muted-foreground mt-4">
+                <p className="text-sm text-nl-steel mt-4">
                   Please save this ID securely. You will need it to log in to your account.
                 </p>
               </div>
@@ -469,7 +469,7 @@ const StudentRegistration = () => {
             <CardFooter className="flex justify-center">
               <Button
                 onClick={handleBackToLogin}
-                className="bg-[#3c6299] hover:bg-[#2a4a7a] text-white"
+                className="bg-nl-blue hover:bg-nl-navy text-white"
               >
                 Back to Login
               </Button>
@@ -481,7 +481,7 @@ const StudentRegistration = () => {
   }
 
   return (
-    <div className="min-h-screen flex bg-gray-50">
+    <div className="student-portal-theme min-h-screen flex bg-nl-mist">
       <div className="hidden lg:flex lg:w-1/2 xl:w-3/5">
         <div className="w-full h-full">
           <Slideshow />
@@ -498,7 +498,7 @@ const StudentRegistration = () => {
       <div className="w-full lg:w-1/2 xl:w-2/5 flex items-center justify-center p-8 z-10">
         <div className="w-full max-w-md">
           {/* semi-transparent on mobile so slideshow is visible; opaque on lg+ */}
-          <Card className="w-full shadow-lg border-0 bg-white/70 backdrop-blur-sm lg:bg-white lg:backdrop-blur-0">
+          <Card className="nl-card w-full rounded-2xl border-0 bg-white/80 backdrop-blur-sm lg:bg-white lg:backdrop-blur-0">
             <CardHeader className="space-y-1 pb-4">
 
               <div className="flex justify-center">
@@ -510,10 +510,10 @@ const StudentRegistration = () => {
                 />
               </div>
 
-              <CardTitle className="text-2xl font-bold text-center text-[#3c6299]">
+              <CardTitle className="text-2xl font-bold text-center text-nl-blue">
                 Student Registration
               </CardTitle>
-              <CardDescription className="text-center text-sm text-gray-600">
+              <CardDescription className="text-center text-sm text-nl-steel">
                 {currentStep === 1
                   ? "Step 1: Personal Information"
                   : "Step 2: Address Information"}
@@ -530,13 +530,13 @@ const StudentRegistration = () => {
                           name="fName"
                           render={({ field }) => (
                             <FormItem>
-                              <FormLabel className="text-sm font-medium text-[#3c6299]">First Name</FormLabel>
+                              <FormLabel className="text-sm font-medium text-nl-blue">First Name</FormLabel>
                               <FormControl>
                                 <Input
                                   placeholder="Enter your first name"
                                   {...field}
                                   disabled={loading}
-                                  className="h-10 border-gray-300 focus:border-[#00afa1] focus:ring-[#00afa1]"
+                                  className="h-10 border-nl-line focus:border-nl-sky focus:ring-nl-sky"
                                 />
                               </FormControl>
                               <FormMessage className="text-xs" />
@@ -548,13 +548,13 @@ const StudentRegistration = () => {
                           name="lName"
                           render={({ field }) => (
                             <FormItem>
-                              <FormLabel className="text-sm font-medium text-[#3c6299]">Last Name</FormLabel>
+                              <FormLabel className="text-sm font-medium text-nl-blue">Last Name</FormLabel>
                               <FormControl>
                                 <Input
                                   placeholder="Enter your last name"
                                   {...field}
                                   disabled={loading}
-                                  className="h-10 border-gray-300 focus:border-[#00afa1] focus:ring-[#00afa1]"
+                                  className="h-10 border-nl-line focus:border-nl-sky focus:ring-nl-sky"
                                 />
                               </FormControl>
                               <FormMessage className="text-xs" />
@@ -569,14 +569,14 @@ const StudentRegistration = () => {
                           name="email"
                           render={({ field }) => (
                             <FormItem>
-                              <FormLabel className="text-sm font-medium text-[#3c6299]">Email</FormLabel>
+                              <FormLabel className="text-sm font-medium text-nl-blue">Email</FormLabel>
                               <FormControl>
                                 <Input
                                   type="email"
                                   placeholder="your.email@example.com"
                                   {...field}
                                   disabled={loading}
-                                  className="h-10 border-gray-300 focus:border-[#00afa1] focus:ring-[#00afa1]"
+                                  className="h-10 border-nl-line focus:border-nl-sky focus:ring-nl-sky"
                                 />
                               </FormControl>
                               <FormMessage className="text-xs" />
@@ -588,14 +588,14 @@ const StudentRegistration = () => {
                           name="phone"
                           render={({ field }) => (
                             <FormItem>
-                              <FormLabel className="text-sm font-medium text-[#3c6299]">Phone Number *</FormLabel>
+                              <FormLabel className="text-sm font-medium text-nl-blue">Phone Number *</FormLabel>
                               <FormControl>
                                 <Input
                                   placeholder="Phone number (Whatsapp)"
                                   {...field}
                                   disabled={loading}
                                   maxLength={10}
-                                  className="h-10 border-gray-300 focus:border-[#00afa1] focus:ring-[#00afa1]"
+                                  className="h-10 border-nl-line focus:border-nl-sky focus:ring-nl-sky"
                                 />
                               </FormControl>
                               <FormMessage className="text-xs" />
@@ -610,14 +610,14 @@ const StudentRegistration = () => {
                           name="olAlId"
                           render={({ field }) => (
                             <FormItem>
-                              <FormLabel className="text-sm font-medium text-[#3c6299]">OL or AL</FormLabel>
+                              <FormLabel className="text-sm font-medium text-nl-blue">OL or AL</FormLabel>
                               <Select
                                 onValueChange={field.onChange}
                                 defaultValue={field.value}
                                 disabled={loading || olAlLoading}
                               >
                                 <FormControl>
-                                  <SelectTrigger className="h-10 border-gray-300 focus:border-[#00afa1] focus:ring-[#00afa1]">
+                                  <SelectTrigger className="h-10 border-nl-line focus:border-nl-sky focus:ring-nl-sky">
                                     <SelectValue placeholder="Select OL or AL" />
                                   </SelectTrigger>
                                 </FormControl>
@@ -645,14 +645,14 @@ const StudentRegistration = () => {
                           name="gradeId"
                           render={({ field }) => (
                             <FormItem>
-                              <FormLabel className="text-sm font-medium text-[#3c6299]">Grade/Class</FormLabel>
+                              <FormLabel className="text-sm font-medium text-nl-blue">Grade/Class</FormLabel>
                               <Select
                                 onValueChange={field.onChange}
                                 defaultValue={field.value}
                                 disabled={loading || gradesLoading || !watchOlAlId}
                               >
                                 <FormControl>
-                                  <SelectTrigger className="h-10 border-gray-300 focus:border-[#00afa1] focus:ring-[#00afa1]">
+                                  <SelectTrigger className="h-10 border-nl-line focus:border-nl-sky focus:ring-nl-sky">
                                     <SelectValue placeholder={
                                       !watchOlAlId ? "Please select OL/AL first" : "Select your grade"
                                     } />
@@ -687,14 +687,14 @@ const StudentRegistration = () => {
                           name="dateOfBirth"
                           render={({ field }) => (
                             <FormItem>
-                              <FormLabel className="text-sm font-medium text-[#3c6299]">Date of Birth</FormLabel>
+                              <FormLabel className="text-sm font-medium text-nl-blue">Date of Birth</FormLabel>
                               <FormControl>
                                 <Input
                                   type="date"
                                   {...field}
                                   disabled={loading}
                                   max={new Date().toISOString().split('T')[0]}
-                                  className="h-10 border-gray-300 focus:border-[#00afa1] focus:ring-[#00afa1]"
+                                  className="h-10 border-nl-line focus:border-nl-sky focus:ring-nl-sky"
                                 />
                               </FormControl>
                               <FormMessage className="text-xs" />
@@ -706,13 +706,13 @@ const StudentRegistration = () => {
                           name="school"
                           render={({ field }) => (
                             <FormItem>
-                              <FormLabel className="text-sm font-medium text-[#3c6299]">School</FormLabel>
+                              <FormLabel className="text-sm font-medium text-nl-blue">School</FormLabel>
                               <FormControl>
                                 <Input
                                   placeholder="Enter your school name"
                                   {...field}
                                   disabled={loading}
-                                  className="h-10 border-gray-300 focus:border-[#00afa1] focus:ring-[#00afa1]"
+                                  className="h-10 border-nl-line focus:border-nl-sky focus:ring-nl-sky"
                                 />
                               </FormControl>
                               <FormMessage className="text-xs" />
@@ -728,13 +728,13 @@ const StudentRegistration = () => {
                           name="nic"
                           render={({ field }) => (
                             <FormItem>
-                              <FormLabel className="text-sm font-medium text-[#3c6299]">NIC Number</FormLabel>
+                              <FormLabel className="text-sm font-medium text-nl-blue">NIC Number</FormLabel>
                               <FormControl>
                                 <Input
                                   placeholder="Enter your NIC number"
                                   {...field}
                                   disabled={loading}
-                                  className="h-10 border-gray-300 focus:border-[#00afa1] focus:ring-[#00afa1]"
+                                  className="h-10 border-nl-line focus:border-nl-sky focus:ring-nl-sky"
                                 />
                               </FormControl>
                               <FormMessage className="text-xs" />
@@ -749,14 +749,14 @@ const StudentRegistration = () => {
                           name="password"
                           render={({ field }) => (
                             <FormItem>
-                              <FormLabel className="text-sm font-medium text-[#3c6299]">Password</FormLabel>
+                              <FormLabel className="text-sm font-medium text-nl-blue">Password</FormLabel>
                               <FormControl>
                                 <Input
                                   type="password"
                                   placeholder="Create a password"
                                   {...field}
                                   disabled={loading}
-                                  className="h-10 border-gray-300 focus:border-[#00afa1] focus:ring-[#00afa1]"
+                                  className="h-10 border-nl-line focus:border-nl-sky focus:ring-nl-sky"
                                 />
                               </FormControl>
                               <FormMessage className="text-xs" />
@@ -768,14 +768,14 @@ const StudentRegistration = () => {
                           name="confirmPassword"
                           render={({ field }) => (
                             <FormItem>
-                              <FormLabel className="text-sm font-medium text-[#3c6299]">Confirm Password</FormLabel>
+                              <FormLabel className="text-sm font-medium text-nl-blue">Confirm Password</FormLabel>
                               <FormControl>
                                 <Input
                                   type="password"
                                   placeholder="Confirm your password"
                                   {...field}
                                   disabled={loading}
-                                  className="h-10 border-gray-300 focus:border-[#00afa1] focus:ring-[#00afa1]"
+                                  className="h-10 border-nl-line focus:border-nl-sky focus:ring-nl-sky"
                                 />
                               </FormControl>
                               <FormMessage className="text-xs" />
@@ -787,7 +787,7 @@ const StudentRegistration = () => {
                       <Button
                         type="button"
                         onClick={handleNextStep}
-                        className="w-full h-11 bg-[#00afa1] hover:bg-[#0e8b81] text-white font-medium mt-2 transition-colors duration-200"
+                        className="w-full h-11 bg-nl-teal hover:bg-nl-teal/90 text-white font-medium mt-2 transition-colors duration-200"
                         disabled={loading || gradesLoading || olAlLoading}
                       >
                         Next: Address Information
@@ -799,20 +799,20 @@ const StudentRegistration = () => {
                     <>
                       <div className="space-y-4">
                         <div className="border-t pt-4">
-                          <h3 className="text-lg font-semibold text-[#3c6299] mb-3">Address Information</h3>
+                          <h3 className="text-lg font-semibold text-nl-blue mb-3">Address Information</h3>
 
                           <FormField
                             control={form.control}
                             name="line1"
                             render={({ field }) => (
                               <FormItem>
-                                <FormLabel className="text-sm font-medium text-[#3c6299]">Address Line 1 *</FormLabel>
+                                <FormLabel className="text-sm font-medium text-nl-blue">Address Line 1 *</FormLabel>
                                 <FormControl>
                                   <Input
                                     placeholder="Street address, P.O. box, company name"
                                     {...field}
                                     disabled={loading}
-                                    className="h-10 border-gray-300 focus:border-[#00afa1] focus:ring-[#00afa1]"
+                                    className="h-10 border-nl-line focus:border-nl-sky focus:ring-nl-sky"
                                   />
                                 </FormControl>
                                 <FormMessage className="text-xs" />
@@ -825,13 +825,13 @@ const StudentRegistration = () => {
                             name="line2"
                             render={({ field }) => (
                               <FormItem>
-                                <FormLabel className="text-sm font-medium text-[#3c6299]">Address Line 2</FormLabel>
+                                <FormLabel className="text-sm font-medium text-nl-blue">Address Line 2</FormLabel>
                                 <FormControl>
                                   <Input
                                     placeholder="Apartment, suite, unit, building, floor"
                                     {...field}
                                     disabled={loading}
-                                    className="h-10 border-gray-300 focus:border-[#00afa1] focus:ring-[#00afa1]"
+                                    className="h-10 border-nl-line focus:border-nl-sky focus:ring-nl-sky"
                                   />
                                 </FormControl>
                                 <FormMessage className="text-xs" />
@@ -845,13 +845,13 @@ const StudentRegistration = () => {
                               name="city"
                               render={({ field }) => (
                                 <FormItem>
-                                  <FormLabel className="text-sm font-medium text-[#3c6299]">City *</FormLabel>
+                                  <FormLabel className="text-sm font-medium text-nl-blue">City *</FormLabel>
                                   <FormControl>
                                     <Input
                                       placeholder="City"
                                       {...field}
                                       disabled={loading}
-                                      className="h-10 border-gray-300 focus:border-[#00afa1] focus:ring-[#00afa1]"
+                                      className="h-10 border-nl-line focus:border-nl-sky focus:ring-nl-sky"
                                     />
                                   </FormControl>
                                   <FormMessage className="text-xs" />
@@ -864,13 +864,13 @@ const StudentRegistration = () => {
                               name="postalcode"
                               render={({ field }) => (
                                 <FormItem>
-                                  <FormLabel className="text-sm font-medium text-[#3c6299]">Postal Code</FormLabel>
+                                  <FormLabel className="text-sm font-medium text-nl-blue">Postal Code</FormLabel>
                                   <FormControl>
                                     <Input
                                       placeholder="Postal code"
                                       {...field}
                                       disabled={loading}
-                                      className="h-10 border-gray-300 focus:border-[#00afa1] focus:ring-[#00afa1]"
+                                      className="h-10 border-nl-line focus:border-nl-sky focus:ring-nl-sky"
                                     />
                                   </FormControl>
                                   <FormMessage className="text-xs" />
@@ -884,14 +884,14 @@ const StudentRegistration = () => {
                             name="provinceId"
                             render={({ field }) => (
                               <FormItem>
-                                <FormLabel className="text-sm font-medium text-[#3c6299]">Province *</FormLabel>
+                                <FormLabel className="text-sm font-medium text-nl-blue">Province *</FormLabel>
                                 <Select
                                   onValueChange={field.onChange}
                                   defaultValue={field.value}
                                   disabled={loading || provincesLoading}
                                 >
                                   <FormControl>
-                                    <SelectTrigger className="h-10 border-gray-300 focus:border-[#00afa1] focus:ring-[#00afa1]">
+                                    <SelectTrigger className="h-10 border-nl-line focus:border-nl-sky focus:ring-nl-sky">
                                       <SelectValue placeholder="Select province" />
                                     </SelectTrigger>
                                   </FormControl>
@@ -923,14 +923,14 @@ const StudentRegistration = () => {
                             name="districtId"
                             render={({ field }) => (
                               <FormItem>
-                                <FormLabel className="text-sm font-medium text-[#3c6299]">District *</FormLabel>
+                                <FormLabel className="text-sm font-medium text-nl-blue">District *</FormLabel>
                                 <Select
                                   onValueChange={field.onChange}
                                   value={field.value}
                                   disabled={loading || districtsLoading}
                                 >
                                   <FormControl>
-                                    <SelectTrigger id="districtSelect" className="h-10 border-gray-300 focus:border-[#00afa1] focus:ring-[#00afa1]">
+                                    <SelectTrigger id="districtSelect" className="h-10 border-nl-line focus:border-nl-sky focus:ring-nl-sky">
                                       <SelectValue placeholder="Select district" />
                                     </SelectTrigger>
                                   </FormControl>
@@ -964,7 +964,7 @@ const StudentRegistration = () => {
                           type="button"
                           onClick={handlePrevStep}
                           variant="outline"
-                          className="flex-1 h-11 border-gray-300 text-gray-700 hover:bg-gray-50"
+                          className="flex-1 h-11 border-nl-line text-nl-ink hover:bg-nl-mist"
                           disabled={loading}
                         >
                           Back
@@ -972,7 +972,7 @@ const StudentRegistration = () => {
                         <Button
                           type="button"
                           onClick={handleSubmitStep2}
-                          className="flex-1 h-11 bg-[#00afa1] hover:bg-[#0e8b81] text-white font-medium transition-colors duration-200"
+                          className="flex-1 h-11 bg-nl-teal hover:bg-nl-teal/90 text-white font-medium transition-colors duration-200"
                           disabled={loading || provincesLoading || districtsLoading}
                         >
                           {loading ? "Registering..." : "Complete Registration"}
@@ -985,11 +985,11 @@ const StudentRegistration = () => {
             </CardContent>
             {currentStep === 1 && (
               <CardFooter className="flex justify-center pt-4">
-                <p className="text-sm text-gray-600">
+                <p className="text-sm text-nl-steel">
                   Already have an account?{" "}
                   <Button
                     variant="link"
-                    className="p-0 h-auto text-[#686868] hover:text-[#686868] font-medium"
+                    className="p-0 h-auto text-nl-steel hover:text-nl-steel font-medium"
                     onClick={() => navigate("/login")}
                     disabled={loading}
                   >

@@ -84,7 +84,7 @@ const Slideshow = ({ isMobile = false }: { isMobile?: boolean }) => {
   }, [slides.length]);
 
   return (
-    <div className={`relative overflow-hidden bg-gradient-to-br from-blue-900 to-purple-900 ${isMobile ? 'fixed inset-0 -z-10' : 'h-full w-full'
+    <div className={`relative overflow-hidden bg-gradient-to-br from-nl-navy via-nl-blue to-nl-sky ${isMobile ? 'fixed inset-0 -z-10' : 'h-full w-full'
       }`}>
       <div
         className="flex transition-transform duration-700 ease-in-out h-full"
@@ -238,7 +238,7 @@ const LoginForm = () => {
   };
 
   return (
-    <div className="min-h-screen flex bg-gray-50">
+    <div className="student-portal-theme min-h-screen flex bg-nl-mist">
       {/* Desktop Slideshow (left side) */}
       <div className="hidden lg:flex lg:w-1/2 xl:w-3/5">
         <div className="w-full h-full">
@@ -257,7 +257,7 @@ const LoginForm = () => {
       <div className="w-full lg:w-1/2 xl:w-2/5 flex items-center justify-center p-8 z-10">
         <div className="w-full max-w-md">
           {/* make card semi-transparent on mobile so slideshow is visible behind it */}
-          <Card className="w-full shadow-lg border-0 bg-white/70 backdrop-blur-sm lg:bg-transparent lg:backdrop-blur-0">
+          <Card className="nl-card w-full rounded-2xl bg-white/80 backdrop-blur-sm lg:bg-transparent lg:backdrop-blur-0">
             <CardHeader className="space-y-1 pb-4">
               <div className="flex justify-center">
                 <img
@@ -267,17 +267,17 @@ const LoginForm = () => {
                   onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = 'none'; }}
                 />
               </div>
-              <CardTitle className="text-2xl font-bold text-center text-[#3c6299]">
+              <CardTitle className="font-display text-center text-2xl font-bold text-nl-blue">
                 Student Portal Login
               </CardTitle>
-              <CardDescription className="text-center text-sm text-gray-600">
+              <CardDescription className="text-center text-sm text-nl-steel">
                 Enter your mobile number and password to access your account
               </CardDescription>
             </CardHeader>
             <CardContent>
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="space-y-2">
-                  <Label htmlFor="mobile" className="flex items-center gap-2 text-sm font-medium text-[#3c6299]">
+                  <Label htmlFor="mobile" className="flex items-center gap-2 text-sm font-medium text-nl-blue">
                     <Phone className="h-4 w-4" />
                     Mobile Number
                   </Label>
@@ -288,12 +288,12 @@ const LoginForm = () => {
                     onChange={(e) => setMobile(e.target.value.replace(/\D/g, '').slice(0, 10))}
                     required
                     disabled={loading}
-                    className="h-11 border-gray-300 focus:border-[#00afa1] focus:ring-[#00afa1]"
+                    className="h-11 rounded-xl border-nl-line focus:border-nl-sky focus:ring-nl-sky"
                     maxLength={10}
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="password" className="text-sm font-medium text-[#3c6299]">Password</Label>
+                  <Label htmlFor="password" className="text-sm font-medium text-nl-blue">Password</Label>
                   <div className="relative">
                     <Input
                       id="password"
@@ -303,13 +303,13 @@ const LoginForm = () => {
                       onChange={(e) => setPassword(e.target.value)}
                       required
                       disabled={loading}
-                      className="h-11 pr-12 border-gray-300 focus:border-[#00afa1] focus:ring-[#00afa1]"
+                      className="h-11 rounded-xl border-nl-line pr-12 focus:border-nl-sky focus:ring-nl-sky"
                     />
                     <Button
                       type="button"
                       variant="ghost"
                       size="icon"
-                      className="absolute right-0 top-0 h-full px-3 hover:bg-transparent text-[#3c6299]"
+                      className="absolute right-0 top-0 h-full rounded-xl px-3 text-nl-blue hover:bg-transparent"
                       onClick={togglePasswordVisibility}
                     >
                       {showPassword ? <EyeOffIcon className="h-4 w-4" /> : <EyeIcon className="h-4 w-4" />}
@@ -318,7 +318,7 @@ const LoginForm = () => {
                 </div>
                 <Button
                   type="submit"
-                  className="w-full h-11 bg-[#00afa1] hover:bg-[#0e8b81] text-white font-medium transition-colors duration-200"
+                  className="h-11 w-full rounded-xl bg-gradient-to-r from-nl-blue to-nl-navy font-medium text-white shadow-soft transition-colors duration-200 hover:opacity-90"
                   disabled={loading}
                 >
                   {loading ? "Logging in..." : "Login"}
@@ -326,21 +326,21 @@ const LoginForm = () => {
               </form>
             </CardContent>
             <CardFooter className="flex flex-col space-y-3 pt-4">
-              <p className="text-center text-sm text-gray-600 w-full">
+              <p className="text-center text-sm text-nl-steel w-full">
                 <a
                   href="#"
                   onClick={openForgotModal}
-                  className="text-[#00afa1] hover:underline font-medium"
+                  className="text-nl-teal hover:underline font-medium"
                 >
                   Forgot your password?
                 </a>
               </p>
-              <div className="w-full border-t border-gray-200 my-2"></div>
-              <p className="text-center text-sm text-gray-600">
+              <div className="w-full border-t border-nl-line my-2"></div>
+              <p className="text-center text-sm text-nl-steel">
                 Don't have an account?{" "}
                 <Button
                   variant="link"
-                  className="p-0 text-[#686868] hover:text-[#686868] hover:underline font-medium"
+                  className="p-0 text-nl-steel hover:text-nl-blue hover:underline font-medium"
                   onClick={handleRegisterRedirect}
                   disabled={loading}
                 >
@@ -368,16 +368,16 @@ const LoginForm = () => {
                 onClick={closeForgotModal}
                 aria-hidden="true"
               />
-              <div className="relative w-full max-w-md bg-white rounded-lg shadow-lg p-6 z-10">
-                <h3 className="text-lg font-semibold text-[#3c6299] mb-2">Forgot your password?</h3>
-                <p className="text-sm text-gray-700 mb-4">
+              <div className="relative z-10 w-full max-w-md rounded-2xl bg-white p-6 shadow-lift">
+                <h3 className="font-display mb-2 text-lg font-semibold text-nl-blue">Forgot your password?</h3>
+                <p className="mb-4 text-sm text-nl-steel">
                   Calm down and try to remember the old password. If that fails, contact support.😅👏
                 </p>
                 <div className="flex justify-end">
                   <button
                     type="button"
                     onClick={closeForgotModal}
-                    className="inline-flex items-center px-4 py-2 bg-[#00afa1] text-white rounded-md hover:bg-[#0e8b81]"
+                    className="inline-flex items-center rounded-xl bg-nl-teal px-4 py-2 text-white shadow-soft hover:bg-nl-teal/90"
                   >
                     Okay
                   </button>

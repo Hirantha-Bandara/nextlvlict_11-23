@@ -267,23 +267,23 @@ const WelcomeModal: React.FC<WelcomeModalProps> = ({
   return (
     <Dialog open={isOpen} onOpenChange={() => {}}>
       <DialogContent
-        className="sm:max-w-xl p-0 overflow-hidden border-0 shadow-2xl bg-white rounded-2xl [&>button]:hidden"
+        className="student-portal-theme nl-card sm:max-w-xl p-0 overflow-hidden bg-white rounded-2xl [&>button]:hidden"
         onPointerDownOutside={(e) => e.preventDefault()}
         onEscapeKeyDown={(e) => e.preventDefault()}
       >
         {/* Header Section */}
-        <div className="relative bg-gradient-to-r from-[#0f5f8f] via-[#00afa1] to-[#0e8b81] p-6 text-white text-center overflow-hidden">
-          <div className="absolute -top-10 -right-10 w-36 h-36 bg-white/10 rounded-full blur-2xl pointer-events-none" />
-          <div className="absolute -bottom-10 -left-10 w-36 h-36 bg-white/10 rounded-full blur-2xl pointer-events-none" />
+        <div className="nl-hero-mesh relative bg-gradient-to-r from-nl-navy via-nl-blue to-nl-sky p-6 text-center text-white overflow-hidden">
+          <div className="absolute -top-10 -right-10 w-36 h-36 rounded-full bg-nl-orange/30 blur-2xl pointer-events-none" />
+          <div className="absolute -bottom-10 -left-10 w-36 h-36 rounded-full bg-nl-teal/30 blur-2xl pointer-events-none" />
 
           <div className="relative z-10 flex flex-col items-center">
-            <div className="mb-3 flex h-14 w-14 items-center justify-center rounded-2xl bg-white/20 backdrop-blur-md shadow-inner border border-white/30">
-              <Compass className="h-8 w-8 text-white animate-pulse" />
+            <div className="mb-3 flex h-14 w-14 items-center justify-center rounded-2xl border border-white/30 bg-white/20 shadow-inner backdrop-blur-md">
+              <Compass className="h-8 w-8 animate-pulse text-white" />
             </div>
-            <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white">
+            <h2 className="font-display text-2xl font-extrabold tracking-tight text-white sm:text-3xl">
               Welcome to NextLevelICT
             </h2>
-            <p className="mt-2 text-sm sm:text-base font-medium text-sky-100 max-w-md">
+            <p className="mt-2 max-w-md text-sm font-medium text-white/75 sm:text-base">
               Please select where you would like to continue.
             </p>
           </div>
@@ -294,34 +294,34 @@ const WelcomeModal: React.FC<WelcomeModalProps> = ({
           {/* Dynamic Grades Section */}
           <div className="space-y-3">
             <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2 text-slate-800 font-bold text-sm uppercase tracking-wider">
-                <GraduationCap className="h-4 w-4 text-[#00afa1]" />
+              <div className="flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-nl-ink">
+                <GraduationCap className="h-4 w-4 text-nl-teal" />
                 <span>Select Your Grade</span>
               </div>
               {registeredGradeName && (
-                <span className="text-xs font-semibold text-[#0f5f8f] bg-sky-50 px-2.5 py-1 rounded-full border border-sky-200 flex items-center gap-1">
-                  <CheckCircle2 className="h-3 w-3 text-emerald-600" />
+                <span className="flex items-center gap-1 rounded-full border border-nl-blue/25 bg-nl-blue/10 px-2.5 py-1 text-xs font-semibold text-nl-blue">
+                  <CheckCircle2 className="h-3 w-3 text-nl-teal" />
                   Your Grade: {registeredGradeName}
                 </span>
               )}
             </div>
 
             {loadingGrades ? (
-              <div className="py-8 flex flex-col items-center justify-center gap-3 bg-slate-50 rounded-xl border border-slate-100">
-                <Loader2 className="h-8 w-8 animate-spin text-[#00afa1]" />
-                <p className="text-xs font-medium text-slate-500">Loading available grades...</p>
+              <div className="flex flex-col items-center justify-center gap-3 rounded-2xl border border-nl-line/70 bg-nl-mist py-8">
+                <Loader2 className="h-8 w-8 animate-spin text-nl-teal" />
+                <p className="text-xs font-medium text-nl-steel">Loading available grades...</p>
               </div>
             ) : error ? (
-              <div className="p-4 rounded-xl bg-amber-50 border border-amber-200 text-amber-800 text-center space-y-3">
+              <div className="p-4 rounded-xl bg-nl-orange/10 border border-nl-orange/30 text-nl-orange text-center space-y-3">
                 <div className="flex items-center justify-center gap-2 font-medium text-sm">
-                  <AlertTriangle className="h-4 w-4 text-amber-600" />
+                  <AlertTriangle className="h-4 w-4 text-nl-orange" />
                   <span>{error}</span>
                 </div>
                 <Button
                   size="sm"
                   variant="outline"
                   onClick={loadGradesAndProfile}
-                  className="bg-white border-amber-300 hover:bg-amber-100 text-amber-900"
+                  className="bg-white border-nl-orange/40 hover:bg-nl-orange/15 text-nl-ink"
                 >
                   <RefreshCw className="h-3.5 w-3.5 mr-1.5" /> Retry
                 </Button>
@@ -335,25 +335,25 @@ const WelcomeModal: React.FC<WelcomeModalProps> = ({
                       key={grade.id}
                       type="button"
                       onClick={() => handleGradeClick(grade)}
-                      className={`relative group p-3.5 rounded-xl border text-left transition-all duration-200 flex flex-col justify-between h-20 ${
+                      className={`relative group flex h-20 flex-col justify-between rounded-2xl border p-3.5 text-left transition-all duration-200 ${
                         matches
-                          ? 'border-emerald-500 bg-emerald-50/70 hover:bg-emerald-100/80 text-emerald-950 shadow-sm ring-1 ring-emerald-400'
-                          : 'border-slate-200 bg-white hover:border-[#00afa1] hover:bg-sky-50/60 text-slate-800 hover:shadow-md'
+                          ? 'border-nl-teal bg-nl-teal/10 text-nl-ink shadow-soft ring-1 ring-nl-teal/50 hover:bg-nl-teal/15'
+                          : 'border-nl-line bg-white text-nl-ink hover:border-nl-teal hover:bg-nl-blue/5 hover:shadow-lift'
                       }`}
                     >
                       <div className="flex items-center justify-between w-full">
-                        <span className="font-bold text-sm sm:text-base group-hover:text-[#0f5f8f]">
+                        <span className="font-display font-bold text-sm sm:text-base group-hover:text-nl-blue">
                           {grade.name}
                         </span>
                         {matches && (
-                          <Badge className="bg-emerald-600 text-white text-[10px] px-1.5 py-0.5 font-bold">
+                          <Badge className="bg-nl-teal text-white text-[10px] px-1.5 py-0.5 font-bold">
                             Registered
                           </Badge>
                         )}
                       </div>
-                      <div className="flex items-center justify-between w-full text-xs text-slate-500 mt-1">
+                      <div className="mt-1 flex items-center justify-between w-full text-xs text-nl-steel">
                         <span>{matches ? 'Go to Dashboard' : 'Resources'}</span>
-                        <ArrowRight className={`h-3.5 w-3.5 transition-transform group-hover:translate-x-1 ${matches ? 'text-emerald-700' : 'text-[#00afa1]'}`} />
+                        <ArrowRight className={`h-3.5 w-3.5 transition-transform group-hover:translate-x-1 ${matches ? 'text-nl-teal' : 'text-nl-teal'}`} />
                       </div>
                     </button>
                   );
@@ -364,10 +364,10 @@ const WelcomeModal: React.FC<WelcomeModalProps> = ({
 
           <div className="relative">
             <div className="absolute inset-0 flex items-center" aria-hidden="true">
-              <div className="w-full border-t border-slate-200" />
+            <div className="w-full border-t border-nl-line" aria-hidden="true" />
             </div>
             <div className="relative flex justify-center text-xs uppercase">
-              <span className="bg-white px-3 text-slate-400 font-semibold tracking-wider">
+              <span className="bg-white px-3 text-nl-steel font-semibold tracking-wider">
                 Or Quick Access
               </span>
             </div>
@@ -378,19 +378,19 @@ const WelcomeModal: React.FC<WelcomeModalProps> = ({
             <button
               type="button"
               onClick={handleFreeQuestionPapersClick}
-              className="p-4 rounded-xl border border-sky-200 bg-gradient-to-br from-sky-50 to-blue-50/50 hover:from-sky-100 hover:to-blue-100/70 text-left transition-all duration-200 group hover:shadow-md flex items-start gap-3.5"
+              className="group flex items-start gap-3.5 rounded-2xl border border-nl-blue/25 bg-gradient-to-br from-nl-blue/5 to-nl-teal/5 p-4 text-left transition-all duration-200 hover:from-nl-blue/10 hover:to-nl-teal/10 hover:shadow-lift"
             >
-              <div className="h-10 w-10 shrink-0 rounded-lg bg-[#0f5f8f] text-white flex items-center justify-center shadow-sm group-hover:scale-105 transition-transform">
+              <div className="h-10 w-10 shrink-0 rounded-xl bg-nl-blue text-white flex items-center justify-center shadow-soft transition-transform group-hover:scale-105">
                 <FileText className="h-5 w-5" />
               </div>
               <div className="min-w-0">
-                <div className="font-bold text-slate-900 text-sm flex items-center gap-1.5">
+                <div className="font-display text-sm font-bold text-nl-ink flex items-center gap-1.5">
                   Question Papers
-                  {/* <Badge variant="outline" className="bg-emerald-100 text-emerald-800 border-0 text-[10px]">
+                  {/* <Badge variant="outline" className="bg-nl-teal/10 text-nl-teal border-0 text-[10px]">
                     FREE
                   </Badge> */}
                 </div>
-                <p className="text-xs text-slate-500 mt-0.5 line-clamp-2">
+                <p className="mt-0.5 text-xs text-nl-steel line-clamp-2">
                   View all free papers grouped by Grade
                 </p>
               </div>
@@ -400,23 +400,23 @@ const WelcomeModal: React.FC<WelcomeModalProps> = ({
         </div>
 
         {/* Footer with Checkbox */}
-        <div className="p-4 bg-slate-50 border-t border-slate-200 flex items-center justify-between">
+        <div className="flex items-center justify-between border-t border-nl-line bg-nl-mist p-4">
           <div className="flex items-center space-x-2">
             <Checkbox
               id="dontShowToday"
               checked={dontShowToday}
               onCheckedChange={(checked) => setDontShowToday(Boolean(checked))}
-              className="border-slate-400 data-[state=checked]:bg-[#00afa1] data-[state=checked]:border-[#00afa1]"
+              className="border-nl-steel data-[state=checked]:bg-nl-teal data-[state=checked]:border-nl-teal"
             />
             <Label
               htmlFor="dontShowToday"
-              className="text-xs font-medium text-slate-600 cursor-pointer select-none"
+              className="text-xs font-medium text-nl-steel cursor-pointer select-none"
             >
               Don't show again today
             </Label>
           </div>
 
-          <span className="text-[11px] font-medium text-slate-400 hidden sm:inline">
+          <span className="hidden text-[11px] font-medium text-nl-steel sm:inline">
             Select an option to continue
           </span>
         </div>
@@ -426,3 +426,4 @@ const WelcomeModal: React.FC<WelcomeModalProps> = ({
 };
 
 export default WelcomeModal;
+;

@@ -39,15 +39,15 @@ const VideoPlayer = ({ videoUrl, title, isOpen, onClose }: VideoPlayerProps) => 
       <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
         <DialogContent className="sm:max-w-[800px] max-h-[90vh] p-0">
           <DialogHeader className="p-4 flex flex-row justify-between items-center">
-            <DialogTitle className="text-lg">{title}</DialogTitle>
+            <DialogTitle className="font-display text-lg text-nl-ink">{title}</DialogTitle>
             <DialogClose asChild>
-              <Button variant="ghost" size="icon" className="h-8 w-8" onClick={onClose}>
+              <Button variant="ghost" size="icon" className="h-8 w-8 rounded-xl text-nl-ink hover:bg-nl-mist" onClick={onClose}>
                 <X className="h-4 w-4" />
               </Button>
             </DialogClose>
           </DialogHeader>
-          <div className="aspect-video w-full flex items-center justify-center bg-gray-100">
-            <p className="text-red-500">Video source not found</p>
+          <div className="aspect-video w-full flex items-center justify-center bg-nl-mist">
+            <p className="text-destructive">Video source not found</p>
           </div>
         </DialogContent>
       </Dialog>

@@ -203,7 +203,7 @@ const PaymentSlipUploadDialog: React.FC<PaymentSlipUploadDialogProps> = ({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+      <DialogContent className="student-portal-theme nl-card max-w-2xl max-h-[90vh] overflow-y-auto rounded-2xl">
         <DialogHeader>
           <DialogTitle>Upload Bank Transfer / ATM Payment Slip</DialogTitle>
         </DialogHeader>
@@ -217,7 +217,7 @@ const PaymentSlipUploadDialog: React.FC<PaymentSlipUploadDialogProps> = ({
 
         {loadingFees ? (
           <div className="flex items-center justify-center py-8">
-            <div className="text-sm text-muted-foreground">Loading eligible fees...</div>
+            <div className="text-sm text-nl-steel">Loading eligible fees...</div>
           </div>
         ) : eligibleFees.length === 0 ? (
           <Alert>
@@ -232,7 +232,7 @@ const PaymentSlipUploadDialog: React.FC<PaymentSlipUploadDialogProps> = ({
             <div className="space-y-2">
               <Label htmlFor="fee">Select Fee</Label>
               <Select value={selectedFeeId} onValueChange={setSelectedFeeId}>
-                <SelectTrigger id="fee">
+                <SelectTrigger id="fee" className="rounded-xl border-nl-line">
                   <SelectValue placeholder="Select a fee" />
                 </SelectTrigger>
                 <SelectContent>
@@ -247,7 +247,7 @@ const PaymentSlipUploadDialog: React.FC<PaymentSlipUploadDialogProps> = ({
 
             {/* Fee Details Display */}
             {selectedFee && (
-              <div className="bg-muted p-3 rounded-lg text-sm space-y-1">
+              <div className="rounded-2xl bg-nl-mist p-3 text-sm text-nl-ink space-y-1">
                 <div><strong>Grade:</strong> {selectedFee.grade}</div>
                 <div><strong>Class Type:</strong> {selectedFee.classType}</div>
                 <div><strong>Month:</strong> {selectedFee.monthYear}</div>
@@ -260,7 +260,7 @@ const PaymentSlipUploadDialog: React.FC<PaymentSlipUploadDialogProps> = ({
             <div className="space-y-2">
               <Label htmlFor="paymentMethod">Payment Method *</Label>
               <Select value={paymentMethod} onValueChange={setPaymentMethod}>
-                <SelectTrigger id="paymentMethod">
+                <SelectTrigger id="paymentMethod" className="rounded-xl border-nl-line">
                   <SelectValue placeholder="Select payment method" />
                 </SelectTrigger>
                 <SelectContent>
@@ -333,13 +333,13 @@ const PaymentSlipUploadDialog: React.FC<PaymentSlipUploadDialogProps> = ({
                   required
                 />
                 {file && (
-                  <div className="flex items-center gap-2 text-sm text-green-600">
+                  <div className="flex items-center gap-2 text-sm text-nl-teal">
                     <CheckCircle className="h-4 w-4" />
                     <span className="max-w-[200px] truncate">{file.name}</span>
                   </div>
                 )}
               </div>
-              <p className="text-xs text-muted-foreground">
+              <p className="text-xs text-nl-steel">
                 Upload a clear image or PDF of your payment slip/receipt. Ensure all details are visible.
               </p>
             </div>

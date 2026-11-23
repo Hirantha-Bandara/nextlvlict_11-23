@@ -82,7 +82,7 @@ const TeacherPortfolio = () => {
   }, [navigate]);
 
   return (
-    <div className="min-h-screen flex flex-col bg-portal-background">
+    <div className="student-portal-theme min-h-screen flex flex-col bg-nl-mist">
       <DashboardHeader title="Teacher Portfolios" />
       <DashboardNav />
       
@@ -91,31 +91,31 @@ const TeacherPortfolio = () => {
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {teachers.map((teacher) => (
-            <Card key={teacher.id} className="hover:shadow-md transition-shadow">
+            <Card key={teacher.id} className="nl-card nl-card-interactive">
               <CardContent className="p-6">
                 <div className="flex flex-col md:flex-row items-center md:items-start gap-4">
-                  <Avatar className="h-24 w-24 border-2 border-portal-lightblue">
-                    <AvatarFallback className="bg-portal-blue text-white text-2xl">
+                  <Avatar className="h-24 w-24 border-2 border-nl-blue/25">
+                    <AvatarFallback className="bg-gradient-to-br from-nl-blue to-nl-navy text-white text-2xl font-display">
                       {teacher.name.split(' ').map(name => name[0]).join('')}
                     </AvatarFallback>
                   </Avatar>
                   
                   <div className="flex-1 space-y-4">
                     <div className="text-center md:text-left">
-                      <h3 className="text-xl font-bold text-portal-blue">{teacher.name}</h3>
-                      <p className="text-gray-600">{teacher.title}</p>
-                      <p className="text-sm mt-2">{teacher.experience} years of teaching experience</p>
+                      <h3 className="font-display text-xl font-bold text-nl-blue">{teacher.name}</h3>
+                      <p className="text-nl-steel">{teacher.title}</p>
+                      <p className="text-sm mt-2 text-nl-steel">{teacher.experience} years of teaching experience</p>
                     </div>
                     
                     <div>
-                      <p className="text-gray-700">{teacher.bio}</p>
+                      <p className="text-nl-steel">{teacher.bio}</p>
                     </div>
                     
                     <div>
-                      <h4 className="font-semibold text-gray-800">Subjects</h4>
+                      <h4 className="font-display font-semibold text-nl-ink">Subjects</h4>
                       <div className="flex flex-wrap gap-2 mt-2">
                         {teacher.subjects.map((subject, idx) => (
-                          <Badge key={idx} className="bg-portal-lightblue text-portal-blue hover:bg-blue-200">
+                          <Badge key={idx} className="rounded-full bg-nl-blue/10 text-nl-blue hover:bg-nl-blue/15">
                             {subject}
                           </Badge>
                         ))}
@@ -123,15 +123,15 @@ const TeacherPortfolio = () => {
                     </div>
                     
                     <div className="space-y-2">
-                      <h4 className="font-semibold text-gray-800">Education</h4>
-                      <ul className="list-disc list-inside text-sm text-gray-700">
+                      <h4 className="font-display font-semibold text-nl-ink">Education</h4>
+                      <ul className="list-disc list-inside text-sm text-nl-steel">
                         {teacher.education.map((edu, idx) => (
                           <li key={idx}>{edu}</li>
                         ))}
                       </ul>
                       
-                      <h4 className="font-semibold text-gray-800 pt-2">Certifications</h4>
-                      <ul className="list-disc list-inside text-sm text-gray-700">
+                      <h4 className="font-display font-semibold text-nl-ink pt-2">Certifications</h4>
+                      <ul className="list-disc list-inside text-sm text-nl-steel">
                         {teacher.certifications.map((cert, idx) => (
                           <li key={idx}>{cert}</li>
                         ))}

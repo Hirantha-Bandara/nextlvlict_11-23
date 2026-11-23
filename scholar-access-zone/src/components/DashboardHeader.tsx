@@ -91,19 +91,19 @@ const DashboardHeader: React.FC<DashboardHeaderProps> = ({ title }) => {
 
   return (
     <>
-      <header className="sticky top-0 z-30 border-b border-slate-200 bg-white/95 px-4 py-3 shadow-sm backdrop-blur">
+      <header className="nl-glass sticky top-0 z-30 border-b border-nl-line px-4 py-3 shadow-[0_1px_0_rgb(26_54_93/0.04)]">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-3">
           <button
             type="button"
             onClick={() => navigate('/dashboard')}
             className="flex min-w-0 items-center gap-3 text-left"
           >
-            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md bg-[#0f5f8f] text-white">
+            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-nl-blue to-nl-navy text-white shadow-soft">
               <Home className="h-5 w-5" />
             </span>
             <span className="min-w-0">
-              <span className="block truncate text-base font-bold text-slate-950 sm:text-xl">{title}</span>
-              <span className="hidden text-sm font-medium text-slate-500 sm:block">Student portal</span>
+              <span className="font-display block truncate text-base font-bold text-nl-ink sm:text-xl">{title}</span>
+              <span className="hidden text-sm font-medium text-nl-steel sm:block">Student portal</span>
             </span>
           </button>
 
@@ -111,7 +111,7 @@ const DashboardHeader: React.FC<DashboardHeaderProps> = ({ title }) => {
             <Button
               variant="outline"
               size="sm"
-              className="h-10 shrink-0 gap-2 border-slate-200 bg-white px-3 text-slate-700 hover:bg-sky-50 hover:text-[#0f5f8f]"
+              className="h-10 shrink-0 gap-2 rounded-xl border-nl-line bg-white/70 px-3 text-nl-ink hover:bg-white hover:text-nl-blue"
               onClick={() => setIsResourcesOpen(true)}
             >
               <BookOpen className="h-4 w-4" />
@@ -120,34 +120,34 @@ const DashboardHeader: React.FC<DashboardHeaderProps> = ({ title }) => {
 
             <Popover open={isPopoverOpen} onOpenChange={setIsPopoverOpen}>
               <PopoverTrigger asChild>
-                <Button 
-                  variant="outline" 
-                  size="sm" 
-                  className="h-10 shrink-0 gap-2 border-slate-200 bg-white px-3 text-slate-700 hover:bg-sky-50 hover:text-[#0f5f8f]"
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="h-10 shrink-0 gap-2 rounded-xl border-nl-line bg-white/70 px-3 text-nl-ink hover:bg-white hover:text-nl-blue"
                 >
                   <User className="h-4 w-4" />
                   <span className="hidden md:inline">{displayName}</span>
                   <ChevronDown className="hidden h-4 w-4 md:block" />
                 </Button>
               </PopoverTrigger>
-              <PopoverContent className="w-64 rounded-lg border-slate-200 p-3 shadow-lg" align="end">
+              <PopoverContent className="nl-card w-64 rounded-2xl p-3" align="end">
                 <div className="space-y-4">
-                  <div className="rounded-lg bg-slate-50 p-3">
-                    <p className="text-sm font-medium text-slate-500">
+                  <div className="rounded-xl bg-nl-mist p-3">
+                    <p className="text-sm font-medium text-nl-steel">
                       Signed in as
                     </p>
-                    <p className="mt-1 text-sm font-bold text-slate-950">
+                    <p className="mt-1 text-sm font-bold text-nl-ink">
                       {displayName}
                     </p>
                     {studentData && (
-                      <p className="mt-1 text-xs font-medium text-[#00796b]">
+                      <p className="mt-1 text-xs font-semibold text-nl-teal">
                         ID: {studentData.studentId}
                       </p>
                     )}
                   </div>
 
                   <Button
-                    className="flex h-11 w-full items-center gap-2 bg-[#00796b] text-white hover:bg-[#00695c]"
+                    className="flex h-11 w-full items-center gap-2 rounded-xl bg-nl-teal text-white shadow-soft hover:bg-nl-teal/90"
                     onClick={handleProfileOpen}
                   >
                     <Edit className="h-4 w-4" />

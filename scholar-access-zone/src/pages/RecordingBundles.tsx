@@ -432,8 +432,8 @@ const RecordingBundles = () => {
 
       <div className="space-y-6">
         {/* Access Filter */}
-        {/*<div className="flex items-center gap-2 bg-white p-4 rounded-lg border border-slate-200">*/}
-        {/*  <Filter className="h-4 w-4 text-slate-400 shrink-0" />*/}
+        {/*<div className="flex items-center gap-2 bg-white p-4 rounded-2xl border border-nl-line">*/}
+        {/*  <Filter className="h-4 w-4 text-nl-steel shrink-0" />*/}
         {/*  <div className="flex gap-2">*/}
         {/*    <Button*/}
         {/*      variant={accessFilter === 'ALL' ? 'default' : 'outline'}*/}
@@ -460,12 +460,12 @@ const RecordingBundles = () => {
         {/*</div>*/}
 
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid w-full grid-cols-2 mb-6">
-            <TabsTrigger value="available" className="flex items-center gap-2">
+          <TabsList className="mb-6 grid w-full grid-cols-2 rounded-2xl bg-nl-mist p-1">
+            <TabsTrigger value="available" className="flex items-center gap-2 rounded-xl data-[state=active]:bg-white data-[state=active]:text-nl-blue data-[state=active]:shadow-soft">
               <ShoppingCart className="h-4 w-4" />
               Available Bundles ({filteredBundles.length})
             </TabsTrigger>
-            <TabsTrigger value="purchased" className="flex items-center gap-2">
+            <TabsTrigger value="purchased" className="flex items-center gap-2 rounded-xl data-[state=active]:bg-white data-[state=active]:text-nl-blue data-[state=active]:shadow-soft">
               <Play className="h-4 w-4" />
               My Bundles ({purchasedBundles.length})
             </TabsTrigger>
@@ -473,10 +473,10 @@ const RecordingBundles = () => {
 
           <TabsContent value="available">
             {filteredBundles.length === 0 ? (
-              <div className="rounded-lg border border-slate-200 bg-white p-8 text-center shadow-sm">
-                <Package className="mx-auto mb-4 h-14 w-14 text-slate-400" />
-                <p className="font-semibold text-slate-950">No bundles found</p>
-                <p className="mt-1 text-sm text-slate-500">
+              <div className="nl-card p-8 text-center">
+                <Package className="mx-auto mb-4 h-14 w-14 text-nl-steel" />
+                <p className="font-display font-semibold text-nl-ink">No bundles found</p>
+                <p className="mt-1 text-sm text-nl-steel">
                   {accessFilter === 'FREE' ? 'No free bundles available' :
                    accessFilter === 'PAID' ? 'No paid bundles available' :
                    'No bundles available at the moment'}
@@ -503,10 +503,10 @@ const RecordingBundles = () => {
 
           <TabsContent value="purchased">
             {purchasedBundles.length === 0 ? (
-              <div className="rounded-lg border border-slate-200 bg-white p-8 text-center shadow-sm">
-                <ShoppingCart className="mx-auto mb-4 h-14 w-14 text-slate-400" />
-                <p className="font-semibold text-slate-950">No purchased bundles</p>
-                <p className="mt-1 text-sm text-slate-500">
+              <div className="nl-card p-8 text-center">
+                <ShoppingCart className="mx-auto mb-4 h-14 w-14 text-nl-steel" />
+                <p className="font-display font-semibold text-nl-ink">No purchased bundles</p>
+                <p className="mt-1 text-sm text-nl-steel">
                   You haven't purchased any bundles yet
                 </p>
               </div>
@@ -549,24 +549,24 @@ const RecordingBundles = () => {
           <div className="space-y-4 py-4">
             {loadingLessons ? (
               <div className="flex items-center justify-center py-8">
-                <Loader2 className="h-8 w-8 animate-spin text-slate-400" />
-                <span className="ml-2 text-slate-500">Loading lessons...</span>
+                <Loader2 className="h-8 w-8 animate-spin text-nl-blue" />
+                <span className="ml-2 text-nl-steel">Loading lessons...</span>
               </div>
             ) : bundleLessons.length === 0 ? (
-              <div className="text-center py-8 text-slate-500">
+              <div className="text-center py-8 text-nl-steel">
                 <Play className="h-12 w-12 mx-auto mb-4 opacity-50" />
                 <p>No lessons available in this bundle</p>
               </div>
             ) : (
               <div className="space-y-6">
                 {bundleLessons.map((lesson, index) => (
-                  <div key={lesson.id} className="border rounded-lg overflow-hidden">
-                    <div className="bg-slate-50 px-4 py-3 border-b">
-                      <h3 className="font-semibold text-slate-900">
+                  <div key={lesson.id} className="nl-card overflow-hidden">
+                    <div className="bg-nl-mist px-4 py-3 border-b border-nl-line/70">
+                      <h3 className="font-display font-semibold text-nl-ink">
                         {index + 1}. {lesson.title}
                       </h3>
                       {lesson.description && (
-                        <p className="text-sm text-slate-600 mt-1">{lesson.description}</p>
+                        <p className="text-sm text-nl-steel mt-1">{lesson.description}</p>
                       )}
                     </div>
                     <div className="aspect-video bg-black">

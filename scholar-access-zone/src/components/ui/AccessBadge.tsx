@@ -19,22 +19,22 @@ export const AccessBadge: React.FC<AccessBadgeProps> = ({
     return (
       <Badge
         variant="outline"
-        className={`border-emerald-200 bg-emerald-50 text-emerald-700 font-semibold px-2.5 py-0.5 inline-flex items-center gap-1 ${className}`}
+        className={`border-nl-teal/25 bg-nl-teal/10 text-nl-teal font-semibold px-2.5 py-0.5 inline-flex items-center gap-1 ${className}`}
       >
-        {showIcon && <Sparkles className="h-3 w-3 text-emerald-600" />}
+        {showIcon && <Sparkles className="h-3 w-3 text-nl-teal" />}
         FREE
       </Badge>
     );
   }
 
   return (
-    <Badge
-      variant="outline"
-      className={`border-blue-200 bg-blue-50 text-blue-700 font-semibold px-2.5 py-0.5 inline-flex items-center gap-1 ${className}`}
-    >
-      {showIcon && <DollarSign className="h-3 w-3 text-blue-600" />}
-      PAID
-    </Badge>
+      <Badge
+        variant="outline"
+        className={`border-nl-blue/30 bg-nl-blue/10 text-nl-blue font-semibold px-2.5 py-0.5 inline-flex items-center gap-1 ${className}`}
+      >
+        {showIcon && <DollarSign className="h-3 w-3 text-nl-blue" />}
+        PAID
+      </Badge>
   );
 };
 

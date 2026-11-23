@@ -70,30 +70,30 @@ const ClassTimetable = () => {
 
       <motion.section variants={portalItemVariants} className="grid gap-4 md:grid-cols-2">
         {timetableData.map((classItem) => (
-          <Card key={classItem.id} className="overflow-hidden border-0 shadow-sm">
+          <Card key={classItem.id} className="nl-card overflow-hidden border-0">
             <CardContent className="p-0">
               <div className="flex items-start justify-between gap-3 bg-white p-4">
                 <div>
-                  <p className="text-sm font-semibold text-[#0f5f8f]">{classItem.day}</p>
-                  <h2 className="mt-1 text-xl font-bold text-slate-950">{classItem.subject}</h2>
+                  <p className="text-sm font-semibold text-nl-blue">{classItem.day}</p>
+                  <h2 className="font-display mt-1 text-xl font-bold text-nl-ink">{classItem.subject}</h2>
                 </div>
-                <Badge variant="outline" className="border-sky-200 bg-sky-50 text-[#0f5f8f]">
+                <Badge variant="outline" className="border-nl-blue/25 bg-nl-blue/10 text-nl-blue">
                   {classItem.status}
                 </Badge>
               </div>
 
-              <div className="grid gap-3 border-t border-slate-100 bg-slate-50 p-4">
-                <div className="flex items-center gap-3 rounded-md bg-white p-3">
-                  <Clock className="h-4 w-4 text-[#0f5f8f]" />
-                  <span className="text-sm font-medium text-slate-700">{classItem.time}</span>
+              <div className="grid gap-3 border-t border-nl-line/70 bg-nl-mist p-4">
+                <div className="flex items-center gap-3 rounded-xl bg-white p-3">
+                  <Clock className="h-4 w-4 text-nl-blue" />
+                  <span className="text-sm font-medium text-nl-ink">{classItem.time}</span>
                 </div>
-                <div className="flex items-center gap-3 rounded-md bg-white p-3">
-                  <MapPin className="h-4 w-4 text-[#00796b]" />
-                  <span className="text-sm font-medium text-slate-700">{classItem.location}</span>
+                <div className="flex items-center gap-3 rounded-xl bg-white p-3">
+                  <MapPin className="h-4 w-4 text-nl-teal" />
+                  <span className="text-sm font-medium text-nl-ink">{classItem.location}</span>
                 </div>
-                <div className="flex items-center gap-3 rounded-md bg-white p-3">
-                  <UserRound className="h-4 w-4 text-indigo-700" />
-                  <span className="text-sm font-medium text-slate-700">{classItem.teacher}</span>
+                <div className="flex items-center gap-3 rounded-xl bg-white p-3">
+                  <UserRound className="h-4 w-4 text-nl-sky" />
+                  <span className="text-sm font-medium text-nl-ink">{classItem.teacher}</span>
                 </div>
               </div>
             </CardContent>

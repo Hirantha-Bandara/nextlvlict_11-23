@@ -380,7 +380,7 @@ const StudentProfile: React.FC<StudentProfileProps> = ({
   if (fetching) {
     return (
       <Dialog open={isOpen} onOpenChange={onClose}>
-        <DialogContent className="sm:max-w-lg">
+        <DialogContent className="student-portal-theme nl-card sm:max-w-lg rounded-2xl">
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
               <User className="h-5 w-5" />
@@ -388,7 +388,7 @@ const StudentProfile: React.FC<StudentProfileProps> = ({
             </DialogTitle>
           </DialogHeader>
           <div className="flex justify-center items-center p-8">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#3c6299]"></div>
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-nl-blue"></div>
           </div>
         </DialogContent>
       </Dialog>
@@ -397,7 +397,7 @@ const StudentProfile: React.FC<StudentProfileProps> = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-lg max-h-[90vh] overflow-y-auto">
+      <DialogContent className="student-portal-theme nl-card sm:max-w-lg max-h-[90vh] overflow-y-auto rounded-2xl">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
             <User className="h-5 w-5" />
@@ -417,8 +417,8 @@ const StudentProfile: React.FC<StudentProfileProps> = ({
                   <Smartphone className="h-4 w-4" />
                   Mobile Number (ID)
                 </Label>
-                <p className="text-lg font-bold text-[#3c6299]">{formData.mobile || 'Not set'}</p>
-                <p className="text-xs text-muted-foreground">Used for login - Your unique student identifier</p>
+                <p className="font-display text-lg font-bold text-nl-blue">{formData.mobile || 'Not set'}</p>
+                <p className="text-xs text-nl-steel">Used for login - Your unique student identifier</p>
               </CardContent>
             </Card>
 
@@ -428,8 +428,8 @@ const StudentProfile: React.FC<StudentProfileProps> = ({
                   <Calendar className="h-4 w-4" />
                   Date of Birth
                 </Label>
-                <p className="text-lg font-semibold">{formatDate(formData.dateOfBirth)}</p>
-                <p className="text-xs text-muted-foreground">Cannot be changed</p>
+                <p className="font-display text-lg font-semibold text-nl-ink">{formatDate(formData.dateOfBirth)}</p>
+                <p className="text-xs text-nl-steel">Cannot be changed</p>
               </CardContent>
             </Card>
           </div>
@@ -438,7 +438,7 @@ const StudentProfile: React.FC<StudentProfileProps> = ({
           {formData.gradeName && (
             <Card>
               <CardContent className="p-4">
-                <h3 className="font-semibold text-[#3c6299] mb-2">Grade Information</h3>
+                <h3 className="font-display mb-2 font-semibold text-nl-blue">Grade Information</h3>
                 <div className="grid grid-cols-2 gap-4">
                   <div>
                     <Label className="text-sm text-muted-foreground">Grade</Label>
@@ -456,7 +456,7 @@ const StudentProfile: React.FC<StudentProfileProps> = ({
           {/* Editable Personal Info */}
           <Card>
             <CardContent className="p-4 space-y-4">
-              <h3 className="font-semibold text-[#3c6299] flex items-center gap-2">
+              <h3 className="font-display flex items-center gap-2 font-semibold text-nl-blue">
                 <User className="h-4 w-4" />
                 Personal Information
               </h3>
@@ -519,7 +519,7 @@ const StudentProfile: React.FC<StudentProfileProps> = ({
           {/* Address Section */}
           <Card>
             <CardContent className="p-4 space-y-4">
-              <h3 className="font-semibold text-[#3c6299] flex items-center gap-2">
+              <h3 className="font-display flex items-center gap-2 font-semibold text-nl-blue">
                 <MapPin className="h-4 w-4" />
                 Address Information
               </h3>
@@ -639,11 +639,11 @@ const StudentProfile: React.FC<StudentProfileProps> = ({
               <div>
                 <Label className="text-sm font-medium mb-2 block">Current Class Types</Label>
                 {studentClassTypes.length === 0 ? (
-                  <p className="text-sm text-gray-500">No class types registered yet.</p>
+                  <p className="text-sm text-nl-steel">No class types registered yet.</p>
                 ) : (
                   <div className="flex flex-wrap gap-2">
                     {studentClassTypes.map((classType) => (
-                      <Badge key={classType.id} className="bg-green-100 text-green-800 hover:bg-green-100 border-green-200">
+                      <Badge key={classType.id} className="bg-nl-teal/10 text-nl-teal hover:bg-nl-teal/15 border-nl-teal/25">
                         <CheckCircle className="h-3 w-3 mr-1" />
                         {classType.classTypeName}
                       </Badge>
@@ -658,7 +658,7 @@ const StudentProfile: React.FC<StudentProfileProps> = ({
                   <Plus className="h-3 w-3" />
                   Register for Additional Class Type
                 </Label>
-                <p className="text-xs text-gray-500 mb-3">
+                <p className="mb-3 text-xs text-nl-steel">
                   If you wish to attend additional class types (e.g., both theory and revision classes), you can register for them here.
                 </p>
                 <div className="flex items-center gap-2">
@@ -667,7 +667,7 @@ const StudentProfile: React.FC<StudentProfileProps> = ({
                     onValueChange={(value) => setSelectedClassTypeId(parseInt(value))}
                     disabled={classTypesLoading || isRegisteringClassType}
                   >
-                    <SelectTrigger className="w-[200px] h-9">
+                    <SelectTrigger className="h-9 rounded-xl border-nl-line w-[200px]">
                       <SelectValue placeholder={classTypesLoading ? "Loading..." : "Select class type"} />
                     </SelectTrigger>
                     <SelectContent>
@@ -707,7 +707,7 @@ const StudentProfile: React.FC<StudentProfileProps> = ({
                   </Button>
                 </div>
                 {availableClassTypes.length > 0 && studentClassTypes.length >= availableClassTypes.length && (
-                  <p className="text-xs text-gray-500 mt-2">
+                  <p className="mt-2 text-xs text-nl-steel">
                     You are already registered for all available class types.
                   </p>
                 )}
@@ -720,7 +720,7 @@ const StudentProfile: React.FC<StudentProfileProps> = ({
             {!isEditing ? (
               <Button
                 onClick={() => setIsEditing(true)}
-                className="flex-1 bg-[#00afa1] hover:bg-[#00afa1]/90 text-white"
+                className="flex-1 bg-nl-teal hover:bg-nl-teal/90 text-white shadow-soft"
               >
                 <Edit className="h-4 w-4 mr-2" />
                 Edit Profile
@@ -730,7 +730,7 @@ const StudentProfile: React.FC<StudentProfileProps> = ({
                 <Button
                   onClick={handleSave}
                   disabled={loading}
-                  className="flex-1 bg-[#3c6299] hover:bg-[#3c6299]/90 text-white"
+                  className="flex-1 bg-nl-blue hover:bg-nl-navy text-white shadow-soft"
                 >
                   {loading ? (
                     "Saving..."
@@ -745,7 +745,7 @@ const StudentProfile: React.FC<StudentProfileProps> = ({
                   variant="outline"
                   onClick={handleCancel}
                   disabled={loading}
-                  className="border-[#3c6299] text-[#3c6299] hover:bg-[#3c6299]/10"
+                  className="rounded-xl border-nl-blue text-nl-blue hover:bg-nl-blue/10"
                 >
                   <X className="h-4 w-4 mr-2" />
                   Cancel

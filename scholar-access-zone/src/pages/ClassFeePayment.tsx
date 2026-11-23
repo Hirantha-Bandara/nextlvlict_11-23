@@ -451,7 +451,7 @@ const ClassFeePayment = () => {
         <Button
           variant="outline"
           onClick={() => setShowHistory(!showHistory)}
-          className="h-12 w-full border-slate-200 bg-white text-slate-700"
+          className="h-12 w-full rounded-xl border-nl-line bg-white text-nl-ink"
         >
           <History className="h-4 w-4" />
           {showHistory ? 'Show Current Fee' : 'Show Payment History'}
@@ -469,13 +469,13 @@ const ClassFeePayment = () => {
 
       {!showHistory ? (
         hasFreeCard ? (
-          <motion.section variants={portalItemVariants} className="rounded-lg border border-amber-200 bg-amber-50 p-8 text-center shadow-sm">
-            <Coins className="mx-auto mb-4 h-12 w-12 text-amber-500" />
-            <h3 className="mb-2 text-xl font-bold text-slate-900">Free Card Active</h3>
-            <p className="mb-4 text-slate-600">You have a free card, so monthly fees are not applicable.</p>
+          <motion.section variants={portalItemVariants} className="rounded-2xl border border-nl-orange/30 bg-nl-orange/10 p-8 text-center shadow-soft">
+            <Coins className="mx-auto mb-4 h-12 w-12 text-nl-orange" />
+            <h3 className="font-display mb-2 text-xl font-bold text-nl-ink">Free Card Active</h3>
+            <p className="mb-4 text-nl-steel">You have a free card, so monthly fees are not applicable.</p>
             <Button
               variant="outline"
-              className="border-amber-300 text-amber-700 hover:bg-amber-100"
+              className="rounded-xl border-nl-orange/40 text-nl-orange hover:bg-nl-orange/10"
               onClick={() => setShowHistory(true)}
             >
               <ReceiptText className="h-4 w-4 mr-2" />
@@ -485,8 +485,8 @@ const ClassFeePayment = () => {
         ) : feeDetails ? (
           <motion.section variants={portalItemVariants} className="space-y-4">
             <div className="mb-4">
-              <p className="text-sm font-semibold text-[#0f5f8f]">{feeDetails.grade}</p>
-              <h2 className="mt-1 text-2xl font-bold text-slate-950">{currentMonthYear}</h2>
+              <p className="text-sm font-semibold text-nl-blue">{feeDetails.grade}</p>
+              <h2 className="font-display mt-1 text-2xl font-bold text-nl-ink">{currentMonthYear}</h2>
             </div>
 
             {monthlyFeeRecords.length > 0 ? (
@@ -505,11 +505,11 @@ const ClassFeePayment = () => {
                 ))}
               </div>
             ) : (
-              <motion.section variants={portalItemVariants} className="rounded-lg border border-slate-200 bg-white p-8 text-center shadow-sm">
-                <AlertCircle className="mx-auto mb-4 h-12 w-12 text-slate-400" />
-                <p className="mb-4 text-slate-500">No fee records found for this month</p>
+              <motion.section variants={portalItemVariants} className="nl-card p-8 text-center">
+                <AlertCircle className="mx-auto mb-4 h-12 w-12 text-nl-steel" />
+                <p className="mb-4 text-nl-steel">No fee records found for this month</p>
                 <Button
-                  className="bg-[#0f5f8f] text-white hover:bg-[#0b4d75]"
+                  className="rounded-xl bg-nl-blue text-white shadow-soft hover:bg-nl-navy"
                   onClick={() => {
                     const studentId = localStorage.getItem("studentId");
                     if (studentId) {
@@ -523,11 +523,11 @@ const ClassFeePayment = () => {
             )}
           </motion.section>
         ) : (
-          <motion.section variants={portalItemVariants} className="rounded-lg border border-slate-200 bg-white p-8 text-center shadow-sm">
-            <AlertCircle className="mx-auto mb-4 h-12 w-12 text-slate-400" />
-            <p className="mb-4 text-slate-500">Unable to load fee information</p>
+          <motion.section variants={portalItemVariants} className="nl-card p-8 text-center">
+            <AlertCircle className="mx-auto mb-4 h-12 w-12 text-nl-steel" />
+            <p className="mb-4 text-nl-steel">Unable to load fee information</p>
             <Button
-              className="bg-[#0f5f8f] text-white hover:bg-[#0b4d75]"
+              className="rounded-xl bg-nl-blue text-white shadow-soft hover:bg-nl-navy"
               onClick={() => {
                 const studentId = localStorage.getItem("studentId");
                 if (studentId) {
@@ -541,20 +541,20 @@ const ClassFeePayment = () => {
         )
       ) : (
         <motion.section variants={portalItemVariants}>
-          <Card className="border-0 shadow-sm">
+          <Card className="nl-card border-0">
             <CardContent className="p-4 sm:p-5">
               <div className="mb-4 flex items-center justify-between gap-3">
                 <div className="flex items-center gap-2">
-                  <ReceiptText className="h-5 w-5 text-[#0f5f8f]" />
-                  <h2 className="text-lg font-bold text-slate-950">Payment History</h2>
+                  <ReceiptText className="h-5 w-5 text-nl-blue" />
+                  <h2 className="font-display text-lg font-bold text-nl-ink">Payment History</h2>
                 </div>
-                <Badge variant="outline" className="border-slate-200 bg-slate-50 text-slate-700">
+                <Badge variant="outline" className="border-nl-line bg-nl-mist text-nl-ink">
                   {totalPayments} records
                 </Badge>
               </div>
 
               {paymentHistory.length > 0 ? (
-                <div className="overflow-x-auto rounded-lg border border-slate-200 bg-white">
+                <div className="nl-card overflow-x-auto rounded-2xl">
                   <Table>
                     <TableHeader>
                       <TableRow>
@@ -588,7 +588,7 @@ const ClassFeePayment = () => {
 
                         return (
                           <TableRow key={payment.id}>
-                            <TableCell className="whitespace-nowrap font-medium text-slate-900">
+                            <TableCell className="whitespace-nowrap font-medium text-nl-ink">
                               {payment.monthYear || payment.description || 'N/A'}
                             </TableCell>
                             <TableCell>{payment.classTypeName || 'N/A'}</TableCell>
@@ -601,13 +601,13 @@ const ClassFeePayment = () => {
                                 {paymentStatusLabel}
                               </Badge>
                             </TableCell>
-                            <TableCell className="font-mono text-xs text-slate-600">{payment.transactionId}</TableCell>
+                            <TableCell className="font-mono text-xs text-nl-steel">{payment.transactionId}</TableCell>
                             <TableCell>
                               <Badge variant="outline" className={verificationStyles.badgeClassName}>
                                 {verificationStyles.label}
                               </Badge>
                               {payment.verificationDate && (
-                                <p className="mt-1 text-[11px] text-slate-500">{formatServerDate(payment.verificationDate)}</p>
+                                <p className="mt-1 text-[11px] text-nl-steel">{formatServerDate(payment.verificationDate)}</p>
                               )}
                             </TableCell>
                           </TableRow>
@@ -618,8 +618,8 @@ const ClassFeePayment = () => {
                 </div>
               ) : (
                 <div className="py-10 text-center">
-                  <History className="mx-auto mb-4 h-12 w-12 text-slate-400" />
-                  <p className="text-slate-500">No payment history found</p>
+                  <History className="mx-auto mb-4 h-12 w-12 text-nl-steel" />
+                  <p className="text-nl-steel">No payment history found</p>
                 </div>
               )}
             </CardContent>

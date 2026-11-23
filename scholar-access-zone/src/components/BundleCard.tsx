@@ -68,7 +68,7 @@ const BundleCard: React.FC<BundleCardProps> = ({ bundle, isPurchased, onPurchase
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}
-      className="overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm hover:shadow-md transition"
+      className="nl-card nl-card-interactive overflow-hidden"
     >
       <div className="relative">
         <img
@@ -79,7 +79,7 @@ const BundleCard: React.FC<BundleCardProps> = ({ bundle, isPurchased, onPurchase
         {/*<div className="absolute left-3 top-3 flex items-center gap-2">*/}
         {/*  <AccessBadge accessType={isFree ? 'FREE' : 'PAID'} />*/}
         {/*  {isPurchased && (*/}
-        {/*    <Badge className="bg-emerald-100 text-emerald-700 border-emerald-200">*/}
+        {/*    <Badge className="bg-nl-teal/10 text-nl-teal border-nl-teal/25">*/}
         {/*      <CheckCircle className="h-3 w-3 mr-1" />*/}
         {/*      Purchased*/}
         {/*    </Badge>*/}
@@ -88,15 +88,15 @@ const BundleCard: React.FC<BundleCardProps> = ({ bundle, isPurchased, onPurchase
       </div>
       <div className="space-y-4 p-4">
         <div>
-          <p className="text-sm font-semibold text-[#0f5f8f]">{bundle.gradeName || 'All Grades'}</p>
-          <h2 className="mt-1 text-lg font-bold text-slate-950">{bundle.title}</h2>
-          <p className="mt-2 text-sm text-slate-600 line-clamp-2">{bundle.description}</p>
-          {/*<p className="mt-2 flex items-center gap-2 text-sm text-slate-500">*/}
+          <p className="text-sm font-semibold text-nl-blue">{bundle.gradeName || 'All Grades'}</p>
+          <h2 className="font-display mt-1 text-lg font-bold text-nl-ink">{bundle.title}</h2>
+          <p className="mt-2 text-sm text-nl-steel line-clamp-2">{bundle.description}</p>
+          {/*<p className="mt-2 flex items-center gap-2 text-sm text-nl-steel">*/}
           {/*  <Package className="h-4 w-4" />*/}
           {/*  {bundle.recordings || 0} recordings included*/}
           {/*</p>*/}
           {bundle.created_at && (
-            <p className="mt-1 flex items-center gap-2 text-sm text-slate-500">
+            <p className="mt-1 flex items-center gap-2 text-sm text-nl-steel">
               <Calendar className="h-4 w-4" />
               {formatDate(bundle.created_at)}
             </p>
@@ -104,22 +104,22 @@ const BundleCard: React.FC<BundleCardProps> = ({ bundle, isPurchased, onPurchase
         </div>
 
         {!isFree && (
-          <p className="text-2xl font-bold text-[#00796b]">
+          <p className="font-display text-2xl font-bold text-nl-teal">
             {formatPrice(bundle.price || 0)}
           </p>
         )}
 
         {isFree ? (
-          <Button 
-            className="h-12 w-full bg-emerald-600 text-white hover:bg-emerald-700 font-semibold" 
+          <Button
+            className="h-12 w-full rounded-xl bg-nl-teal font-semibold text-white shadow-soft hover:bg-nl-teal/90"
             onClick={() => onView(bundle)}
           >
             <Play className="h-4 w-4 mr-1" />
             View Free Bundle
           </Button>
         ) : isPurchased ? (
-          <Button 
-            className="h-12 w-full bg-[#0f5f8f] text-white hover:bg-[#0b4d75]" 
+          <Button
+            className="h-12 w-full rounded-xl bg-nl-blue text-white shadow-soft hover:bg-nl-navy"
             onClick={() => onView(bundle)}
           >
             <Play className="h-4 w-4 mr-1" />
@@ -128,7 +128,7 @@ const BundleCard: React.FC<BundleCardProps> = ({ bundle, isPurchased, onPurchase
         ) : (
           <Button
             disabled={processingId === bundle.id}
-            className="h-12 w-full bg-[#0f5f8f] text-white hover:bg-[#0b4d75]"
+            className="h-12 w-full rounded-xl bg-nl-blue text-white shadow-soft hover:bg-nl-navy"
             onClick={() => onPurchase(bundle)}
           >
             {processingId === bundle.id ? (
