@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useMemo } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -168,6 +168,7 @@ const isRecordingFree = (recording: Recording): boolean => {
 
 const ClassMaterials = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [recordings, setRecordings] = useState<Recording[]>([]);
   const [notes, setNotes] = useState<Note[]>([]);
   const [resourceTypes, setResourceTypes] = useState<ResourceType[]>([]);
@@ -301,7 +302,7 @@ const ClassMaterials = () => {
       toast.error('Payment was cancelled');
       window.history.replaceState({}, document.title, window.location.pathname);
     }
-  }, [navigate]);
+  }, [navigate, location]);
 
   useEffect(() => {
     if (resourceTypes.length > 0) {
@@ -1006,10 +1007,10 @@ const ClassMaterials = () => {
       <motion.article
         key={tute.id}
         variants={portalItemVariants}
-        className="nl-card nl-card-interactive overflow-hidden flex flex-col justify-between"
+        className="nl-card nl-card-interactive overflow-hidden flex flex-col"
       >
         {tute.cover_image_url && <img src={tute.cover_image_url} alt={`${tute.title} cover`} className="h-40 w-full object-cover" />}
-        <div className="p-5">
+        <div className="p-5 flex flex-col flex-1">
           <div className="flex items-start justify-between gap-3">
             <div className="min-w-0">
               <div className="flex items-center gap-2 flex-wrap mb-1">
@@ -1059,52 +1060,52 @@ const ClassMaterials = () => {
               <p className="text-sm leading-relaxed text-nl-steel">{tute.description}</p>
             )}
           </div>
-        </div>
 
-        <div className="mt-5">
-          {isFree ? (
-            <Button
-              className="h-11 w-full rounded-xl bg-nl-teal text-white font-semibold shadow-soft hover:bg-nl-teal/90 flex items-center justify-center gap-2"
-              onClick={() => {
-                if (downloadLink && downloadLink !== '#') {
-                  window.open(downloadLink, '_blank');
-                } else {
-                  toast.error('Download link not available');
-                }
-              }}
-            >
-              <Download className="h-4 w-4" />
-              Download {typeName}
-            </Button>
-          ) : tute.isPurchased ? (
-            <Button className="h-11 w-full rounded-xl bg-nl-teal text-white shadow-soft hover:bg-nl-teal/90 flex items-center justify-center gap-2" onClick={() => window.open(downloadLink, '_blank')}>
-              <FileCheck className="h-4 w-4" />
-              Access {typeName}
-            </Button>
-          ) : tute.hasRequested ? (
-            <Button className="h-11 w-full rounded-xl bg-nl-line text-white" disabled>
-              <ShoppingCart className="h-4 w-4 mr-1" />
-              Purchase Pending
-            </Button>
-          ) : (
-            <Button
-              disabled={processingTuteId === tute.id}
-              className="h-11 w-full rounded-xl bg-nl-blue text-white shadow-soft hover:bg-nl-navy"
-              onClick={() => handleBuyTute(tute)}
-            >
-              {processingTuteId === tute.id ? (
-                <>
-                  <Loader2 className="h-4 w-4 animate-spin mr-1" />
-                  Preparing Payment...
-                </>
-              ) : (
-                <>
-                  <ShoppingCart className="h-4 w-4 mr-1" />
-                  Buy Now - {formatPrice(tute.price)}
-                </>
-              )}
-            </Button>
-          )}
+          <div className="mt-auto pt-4">
+            {isFree ? (
+              <Button
+                className="h-11 w-full rounded-xl bg-nl-teal text-white font-semibold shadow-soft hover:bg-nl-teal/90 flex items-center justify-center gap-2"
+                onClick={() => {
+                  if (downloadLink && downloadLink !== '#') {
+                    window.open(downloadLink, '_blank');
+                  } else {
+                    toast.error('Download link not available');
+                  }
+                }}
+              >
+                <Download className="h-4 w-4" />
+                Download {typeName}
+              </Button>
+            ) : tute.isPurchased ? (
+              <Button className="h-11 w-full rounded-xl bg-nl-teal text-white shadow-soft hover:bg-nl-teal/90 flex items-center justify-center gap-2" onClick={() => window.open(downloadLink, '_blank')}>
+                <FileCheck className="h-4 w-4" />
+                Access {typeName}
+              </Button>
+            ) : tute.hasRequested ? (
+              <Button className="h-11 w-full rounded-xl bg-nl-line text-white" disabled>
+                <ShoppingCart className="h-4 w-4 mr-1" />
+                Purchase Pending
+              </Button>
+            ) : (
+              <Button
+                disabled={processingTuteId === tute.id}
+                className="h-11 w-full rounded-xl bg-nl-blue text-white shadow-soft hover:bg-nl-navy"
+                onClick={() => handleBuyTute(tute)}
+              >
+                {processingTuteId === tute.id ? (
+                  <>
+                    <Loader2 className="h-4 w-4 animate-spin mr-1" />
+                    Preparing Payment...
+                  </>
+                ) : (
+                  <>
+                    <ShoppingCart className="h-4 w-4 mr-1" />
+                    Buy Now - {formatPrice(tute.price)}
+                  </>
+                )}
+              </Button>
+            )}
+          </div>
         </div>
       </motion.article>
     );
@@ -1231,12 +1232,12 @@ const ClassMaterials = () => {
       )}
 
       {/* Top Stats */}
-      <motion.section variants={portalItemVariants} className="grid grid-cols-4 gap-3">
+      <motion.section variants={portalItemVariants} className="grid grid-cols-3 gap-3">
         {[
           { label: 'Total Recordings', value: recordings.length, icon: FileVideo, tone: 'bg-nl-blue/10 text-nl-blue' },
           { label: 'Total Materials', value: allTutesList.length, icon: ShoppingCart, tone: 'bg-nl-teal/10 text-nl-teal' },
-          { label: 'Free Resources', value: freeRecordings.length + freeTutesAll.length, icon: Sparkles, tone: 'bg-nl-teal/10 text-nl-teal' },
-          { label: 'Paid Resources', value: paidRecordings.length + paidTutesAll.length, icon: DollarSign, tone: 'bg-nl-sky/10 text-nl-sky' }
+          { label: 'Free Resources', value: freeRecordings.length + freeTutesAll.length, icon: Sparkles, tone: 'bg-nl-teal/10 text-nl-teal' }
+          // { label: 'Paid Resources', value: paidRecordings.length + paidTutesAll.length, icon: DollarSign, tone: 'bg-nl-sky/10 text-nl-sky' }
         ].map((item) => (
           <Card key={item.label} className="nl-card border-0">
             <CardContent className="p-3 sm:p-4">

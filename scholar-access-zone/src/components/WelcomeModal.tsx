@@ -267,23 +267,24 @@ const WelcomeModal: React.FC<WelcomeModalProps> = ({
   return (
     <Dialog open={isOpen} onOpenChange={() => {}}>
       <DialogContent
-        className="student-portal-theme nl-card sm:max-w-xl p-0 overflow-hidden bg-white rounded-2xl [&>button]:hidden"
+        className="student-portal-theme nl-card sm:max-w-xl p-0 overflow-hidden backdrop-blur-sm rounded-2xl [&>button]:hidden"
+        style={{ backgroundColor: 'rgba(255, 255, 255, 0.95)' }}
         onPointerDownOutside={(e) => e.preventDefault()}
         onEscapeKeyDown={(e) => e.preventDefault()}
       >
         {/* Header Section */}
-        <div className="nl-hero-mesh relative bg-gradient-to-r from-nl-navy via-nl-blue to-nl-sky p-6 text-center text-white overflow-hidden">
+        <div className="nl-hero-mesh relative bg-gradient-to-r from-nl-blue via-nl-sky to-nl-blue p-6 text-center text-white overflow-hidden">
           <div className="absolute -top-10 -right-10 w-36 h-36 rounded-full bg-nl-orange/30 blur-2xl pointer-events-none" />
           <div className="absolute -bottom-10 -left-10 w-36 h-36 rounded-full bg-nl-teal/30 blur-2xl pointer-events-none" />
 
           <div className="relative z-10 flex flex-col items-center">
             <div className="mb-3 flex h-14 w-14 items-center justify-center rounded-2xl border border-white/30 bg-white/20 shadow-inner backdrop-blur-md">
-              <Compass className="h-8 w-8 animate-pulse text-white" />
+              <Compass className="h-8 w-8 animate-pulse text-nl-ink" />
             </div>
-            <h2 className="font-display text-2xl font-extrabold tracking-tight text-white sm:text-3xl">
+            <h2 className="font-display text-2xl font-extrabold tracking-tight text-nl-ink sm:text-3xl">
               Welcome to NextLevelICT
             </h2>
-            <p className="mt-2 max-w-md text-sm font-medium text-white/75 sm:text-base">
+            <p className="mt-2 max-w-md text-sm font-medium text-nl-ink/75 sm:text-base">
               Please select where you would like to continue.
             </p>
           </div>
@@ -327,7 +328,7 @@ const WelcomeModal: React.FC<WelcomeModalProps> = ({
                 </Button>
               </div>
             ) : (
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
+              <div className="grid grid-cols-2 sm:grid-cols-2 gap-2.5">
                 {grades.map((grade) => {
                   const matches = isRegisteredGrade(grade);
                   return (

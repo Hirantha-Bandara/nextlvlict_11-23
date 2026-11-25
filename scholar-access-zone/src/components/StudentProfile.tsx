@@ -380,7 +380,7 @@ const StudentProfile: React.FC<StudentProfileProps> = ({
   if (fetching) {
     return (
       <Dialog open={isOpen} onOpenChange={onClose}>
-        <DialogContent className="student-portal-theme nl-card sm:max-w-lg rounded-2xl">
+        <DialogContent className="student-portal-theme nl-card sm:max-w-lg rounded-2xl backdrop-blur-sm" style={{ backgroundColor: 'rgba(255, 255, 255, 0.95)' }}>
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
               <User className="h-5 w-5" />
@@ -397,7 +397,7 @@ const StudentProfile: React.FC<StudentProfileProps> = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="student-portal-theme nl-card sm:max-w-lg max-h-[90vh] overflow-y-auto rounded-2xl">
+      <DialogContent className="student-portal-theme nl-card sm:max-w-lg max-h-[90vh] overflow-y-auto rounded-2xl backdrop-blur-sm scrollbar-hide" style={{ backgroundColor: 'rgba(255, 255, 255, 0.95)' }}>
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
             <User className="h-5 w-5" />
@@ -655,7 +655,6 @@ const StudentProfile: React.FC<StudentProfileProps> = ({
               {/* Register for New Class Type */}
               <div className="border-t pt-4">
                 <Label className="text-sm font-medium mb-2 flex items-center gap-2 block">
-                  <Plus className="h-3 w-3" />
                   Register for Additional Class Type
                 </Label>
                 <p className="mb-3 text-xs text-nl-steel">

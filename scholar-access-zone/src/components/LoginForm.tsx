@@ -250,14 +250,14 @@ const LoginForm = () => {
       <div className="lg:hidden fixed inset-0 z-0 pointer-events-none">
         <Slideshow />
         {/* subtle overlay so form text stays readable but background remains visible */}
-        <div className="absolute inset-0 bg-black/25"></div>
+        <div className="absolute inset-0 bg-black/0"></div>
       </div>
 
       {/* Login Form */}
       <div className="w-full lg:w-1/2 xl:w-2/5 flex items-center justify-center p-8 z-10">
         <div className="w-full max-w-md">
           {/* make card semi-transparent on mobile so slideshow is visible behind it */}
-          <Card className="nl-card w-full rounded-2xl bg-white/80 backdrop-blur-sm lg:bg-transparent lg:backdrop-blur-0">
+          <Card className="nl-card w-full rounded-2xl backdrop-blur-sm lg:bg-transparent lg:backdrop-blur-0" style={{ backgroundColor: 'rgba(255, 255, 255, 0.95)' }}>
             <CardHeader className="space-y-1 pb-4">
               <div className="flex justify-center">
                 <img

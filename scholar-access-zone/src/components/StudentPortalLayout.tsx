@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { BookOpen, CreditCard, FileVideo, PlayCircle } from 'lucide-react';
 import DashboardHeader from '@/components/DashboardHeader';
@@ -37,6 +37,7 @@ interface StudentPageShellProps {
 
 export const StudentPageShell = ({ title, children, className = '' }: StudentPageShellProps) => {
   const navigate = useNavigate();
+  const location = useLocation();
 
   return (
     <div className={`${THEME_CLASS} min-h-screen bg-nl-mist pb-24 text-nl-ink md:pb-8`}>
@@ -52,15 +53,15 @@ export const StudentPageShell = ({ title, children, className = '' }: StudentPag
 
       <div className="nl-glass fixed inset-x-0 bottom-0 z-20 border-t border-nl-line p-3 md:hidden">
         <div className="mx-auto grid max-w-md grid-cols-3 gap-2">
-          <Button className="h-12 rounded-xl bg-nl-blue text-white shadow-soft hover:bg-nl-navy" onClick={() => navigate('/join-class')}>
+          <Button className={`h-12 rounded-xl shadow-soft ${location.pathname.startsWith('/join-class') ? 'bg-nl-blue text-white hover:bg-nl-navy' : 'bg-white/70 text-nl-ink hover:bg-white'}`} onClick={() => navigate('/join-class')}>
             <PlayCircle className="h-4 w-4" />
             Join
           </Button>
-          <Button variant="outline" className="h-12 rounded-xl border-nl-teal/40 bg-white/70 text-nl-teal hover:bg-nl-teal/10" onClick={() => navigate('/payment')}>
+          <Button className={`h-12 rounded-xl shadow-soft ${location.pathname.startsWith('/payment') ? 'bg-nl-blue text-white hover:bg-nl-navy' : 'bg-white/70 text-nl-ink hover:bg-white'}`} onClick={() => navigate('/payment')}>
             <CreditCard className="h-4 w-4" />
             Pay
           </Button>
-          <Button variant="outline" className="h-12 rounded-xl border-nl-line bg-white/70 text-nl-ink hover:bg-white" onClick={() => navigate('/materials')}>
+          <Button className={`h-12 rounded-xl shadow-soft ${location.pathname.startsWith('/materials') ? 'bg-nl-blue text-white hover:bg-nl-navy' : 'bg-white/70 text-nl-ink hover:bg-white'}`} onClick={() => navigate('/materials')}>
             <FileVideo className="h-4 w-4" />
             Study
           </Button>
@@ -81,7 +82,7 @@ interface StudentPageHeroProps {
 export const StudentPageHero = ({ eyebrow, title, description, icon: Icon = BookOpen, action }: StudentPageHeroProps) => (
   <motion.section
     variants={portalItemVariants}
-    className="nl-hero-mesh relative overflow-hidden rounded-2xl bg-gradient-to-br from-nl-navy via-nl-blue to-nl-sky p-5 text-white shadow-lift sm:p-6"
+    className="relative overflow-hidden rounded-2xl bg-nl-navy p-5 text-white shadow-lift sm:p-6"
   >
     <div className="pointer-events-none absolute -right-16 -top-20 h-56 w-56 rounded-full bg-nl-orange/25 blur-3xl" />
     <div className="pointer-events-none absolute -bottom-24 left-1/3 h-52 w-52 rounded-full bg-nl-teal/25 blur-3xl" />

@@ -130,7 +130,7 @@ const DashboardHeader: React.FC<DashboardHeaderProps> = ({ title }) => {
                   <ChevronDown className="hidden h-4 w-4 md:block" />
                 </Button>
               </PopoverTrigger>
-              <PopoverContent className="nl-card w-64 rounded-2xl p-3" align="end">
+              <PopoverContent className="nl-card w-64 rounded-2xl p-3 backdrop-blur-sm" style={{ backgroundColor: 'rgba(255, 255, 255, 0.95)' }} align="end">
                 <div className="space-y-4">
                   <div className="rounded-xl bg-nl-mist p-3">
                     <p className="text-sm font-medium text-nl-steel">
