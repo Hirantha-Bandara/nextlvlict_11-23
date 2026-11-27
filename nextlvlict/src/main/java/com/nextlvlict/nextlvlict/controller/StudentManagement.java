@@ -51,9 +51,9 @@ public class StudentManagement extends HttpServlet {
         PrintWriter out = response.getWriter();
 
         try {
-            // Allow getStudentDetails action without authentication as per requirement
+            // Allow student portal actions without authentication
             // Require admin authentication for all other actions
-            if (!"getStudentDetails".equals(action)) {
+            if (!"getStudentDetails".equals(action) && !"getStudentClassTypes".equals(action) && !"registerForClassType".equals(action)) {
                 if (!AuthorizationUtil.requireAdminAuthentication(request, response)) {
                     return;
                 }

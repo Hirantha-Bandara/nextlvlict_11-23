@@ -129,7 +129,7 @@ export function Hero() {
           <div className="">
             {/* <span className="absolute inset-x-8 bottom-0 top-16 rounded-t-[6rem] bg-primary/10" /> */}
             <img
-              src="public/hero.png"
+              src="https://i.postimg.cc/VLnYTk7s/hero.png"
               alt="Kavishna Munasingha, A/L ICT teacher"
               className="relative mx-auto h-[24rem] w-auto max-w-full object-contain [mask-image:linear-gradient(to_bottom,black_82%,transparent_100%)] sm:h-[28rem] lg:h-[40rem]"
               width={307}

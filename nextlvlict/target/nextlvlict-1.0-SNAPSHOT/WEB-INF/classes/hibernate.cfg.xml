@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</property>
+        <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+
+        <!-- Database configuration -->
+        <property name="hibernate.connection.url">jdbc:mysql://173.212.244.134:3306/nextlevelict?useSSL=false&amp;allowPublicKeyRetrieval=true&amp;serverTimezone=UTC&amp;connectTimeout=10000&amp;socketTimeout=30000</property>
+        <property name="hibernate.connection.username">kaleox_app</property>
+<!--        <property name="hibernate.connection.password">Nuwantha1122#$</property>-->
+        <property name="hibernate.connection.password">Kaleox@2015</property>
+
+        <property name="hibernate.connection.characterEncoding">UTF-8</property>
+        <property name="hibernate.connection.useUnicode">true</property>
+        <property name="hibernate.connection.CharSet">utf8mb4</property>
+
+        <property name="hibernate.c3p0.min_size">5</property>
+        <property name="hibernate.c3p0.max_size">20</property>
+        <property name="hibernate.c3p0.timeout">1800</property>
+        <property name="hibernate.c3p0.max_statements">50</property>
+        <property name="hibernate.c3p0.idle_test_period">300</property>
+        <property name="hibernate.c3p0.test_connection_on_checkout">true</property>
+        <property name="hibernate.c3p0.preferred_test_query">SELECT 1</property>
+        <property name="hibernate.c3p0.acquire_retry_attempts">10</property>
+        <property name="hibernate.c3p0.acquire_retry_delay">1000</property>
+
+        <mapping class="com.nextlvlict.nextlvlict.hibernate.Students"/>
+        <mapping class="com.nextlvlict.nextlvlict.hibernate.Grade"/>
+        <mapping class="com.nextlvlict.nextlvlict.hibernate.Admin_Users"/>
+        <mapping class="com.nextlvlict.nextlvlict.hibernate.Status"/>
+        <mapping class="com.nextlvlict.nextlvlict.hibernate.Days"/>
+        <mapping class="com.nextlvlict.nextlvlict.hibernate.Class_Schedule"/>
+        <mapping class="com.nextlvlict.nextlvlict.hibernate.Recordings"/>
+        <mapping class="com.nextlvlict.nextlvlict.hibernate.Recording_Request"/>
+        <mapping class="com.nextlvlict.nextlvlict.hibernate.Recording_Status"/>
+        <mapping class="com.nextlvlict.nextlvlict.hibernate.Tutes"/>
+        <mapping class="com.nextlvlict.nextlvlict.hibernate.TutesStatus"/>
+        <mapping class="com.nextlvlict.nextlvlict.hibernate.TuteType"/>
+        <mapping class="com.nextlvlict.nextlvlict.hibernate.Tutes_Request"/>
+        <mapping class="com.nextlvlict.nextlvlict.hibernate.PaymentStatus"/>
+        <mapping class="com.nextlvlict.nextlvlict.hibernate.StudentMonthlyFees"/>
+        <mapping class="com.nextlvlict.nextlvlict.hibernate.PaymentTransactions"/>
+        <mapping class="com.nextlvlict.nextlvlict.hibernate.Ol_or_Al"/>
+        <mapping class="com.nextlvlict.nextlvlict.hibernate.ClassType"/>
+        <mapping class="com.nextlvlict.nextlvlict.hibernate.StudentClass"/>
+        <mapping class="com.nextlvlict.nextlvlict.hibernate.GradeClassFee"/>
+        <mapping class="com.nextlvlict.nextlvlict.hibernate.PortfolioTestimonial"/>
+        <mapping class="com.nextlvlict.nextlvlict.hibernate.PortfolioEvent"/>
+        <mapping class="com.nextlvlict.nextlvlict.hibernate.PortfolioGalleryImage"/>
+        <mapping class="com.nextlvlict.nextlvlict.hibernate.PortfolioBranchImage"/>
+        <mapping class="com.nextlvlict.nextlvlict.hibernate.OLTimetable"/>
+        <mapping class="com.nextlvlict.nextlvlict.hibernate.ALTimetable"/>
+        <mapping class="com.nextlvlict.nextlvlict.hibernate.FreeLesson"/>
+        <mapping class="com.nextlvlict.nextlvlict.hibernate.RecordingBundle"/>
+        <mapping class="com.nextlvlict.nextlvlict.hibernate.BundleLesson"/>
+        <mapping class="com.nextlvlict.nextlvlict.hibernate.BundleRecording"/>
+        <mapping class="com.nextlvlict.nextlvlict.hibernate.BundleRecordingId"/>
+        <mapping class="com.nextlvlict.nextlvlict.hibernate.BundlePurchase"/>
+        <mapping class="com.nextlvlict.nextlvlict.hibernate.OfflinePaymentSubmission"/>
+        <mapping class="com.nextlvlict.nextlvlict.hibernate.EventRegistration"/>
+
+
+        <mapping class="com.nextlvlict.nextlvlict.hibernate.Address"/>
+        <mapping class="com.nextlvlict.nextlvlict.hibernate.Provinces"/>
+        <mapping class="com.nextlvlict.nextlvlict.hibernate.Districts"/>
+
+    </session-factory>
+</hibernate-configuration>
+

@@ -6,10 +6,10 @@
         <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
 
         <!-- Database configuration -->
-        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/nextlvlict?useSSL=false&amp;allowPublicKeyRetrieval=true&amp;serverTimezone=UTC&amp;connectTimeout=10000&amp;socketTimeout=30000</property>
-        <property name="hibernate.connection.username">root</property>
+        <property name="hibernate.connection.url">jdbc:mysql://173.212.244.134:3306/nextlevelict?useSSL=false&amp;allowPublicKeyRetrieval=true&amp;serverTimezone=UTC&amp;connectTimeout=10000&amp;socketTimeout=30000</property>
+        <property name="hibernate.connection.username">kaleox_app</property>
 <!--        <property name="hibernate.connection.password">Nuwantha1122#$</property>-->
-    <property name="hibernate.connection.password">Heshan2023#</property>
+        <property name="hibernate.connection.password">Kaleox@2015</property>
 
         <property name="hibernate.connection.characterEncoding">UTF-8</property>
         <property name="hibernate.connection.useUnicode">true</property>

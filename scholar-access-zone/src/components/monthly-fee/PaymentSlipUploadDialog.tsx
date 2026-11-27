@@ -203,7 +203,7 @@ const PaymentSlipUploadDialog: React.FC<PaymentSlipUploadDialogProps> = ({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="student-portal-theme nl-card max-w-2xl max-h-[90vh] overflow-y-auto rounded-2xl">
+      <DialogContent className="student-portal-theme bg-white max-w-2xl max-h-[90vh] overflow-y-auto rounded-2xl">
         <DialogHeader>
           <DialogTitle>Upload Bank Transfer / ATM Payment Slip</DialogTitle>
         </DialogHeader>
